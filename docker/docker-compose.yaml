@@ -1,0 +1,15 @@
+version: '3.8'
+
+volumes:
+  postgres_data:
+    driver: local
+
+services:
+  database:
+    image: postgres:alpine
+    ports:
+      - "5732:5432"
+    environment:
+      POSTGRES_DB: sql-jdbc-school
+      POSTGRES_USER: pokal
+      POSTGRES_PASSWORD: pokal
