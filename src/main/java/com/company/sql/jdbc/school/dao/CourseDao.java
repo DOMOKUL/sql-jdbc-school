@@ -10,5 +10,4 @@ public interface CourseDao extends CrudDao<Course> {
 
     Integer deleteCourseStudent(Integer student_id, Integer course_id);
 
-    List<Course> findStudentCourseByStudentId(Integer id);
 }

@@ -7,5 +7,11 @@ import java.util.List;
 
 public interface StudentDao extends CrudDao<Student> {
 
+    void saveStudentOnCourses(Student student);
+
+    void deleteStudentFromCourse(Integer studentId, Integer courseId);
+
     List<Student> findStudentsByCourseName(Course course);
+
+    void addCourseSet(Student student);
 }
