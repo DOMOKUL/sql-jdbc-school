@@ -25,11 +25,6 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public void setCourseStudent(Integer student_id, Integer course_id) {
-
-    }
-
-    @Override
     public Integer deleteCourseStudent(Integer student_id, Integer course_id) {
         return null;
     }

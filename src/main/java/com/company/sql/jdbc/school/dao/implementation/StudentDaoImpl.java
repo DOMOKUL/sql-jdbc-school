@@ -8,10 +8,7 @@ import com.company.sql.jdbc.school.util.DataSource;
 import com.company.sql.jdbc.school.util.SqlFileReader;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class StudentDaoImpl implements StudentDao {
 
@@ -24,11 +21,6 @@ public class StudentDaoImpl implements StudentDao {
         return INSTANCE;
     }
 
-
-    @Override
-    public void saveStudentOnCourses(Student student) {
-
-    }
 
     @Override
     public void deleteStudentFromCourse(Integer studentId, Integer courseId) {

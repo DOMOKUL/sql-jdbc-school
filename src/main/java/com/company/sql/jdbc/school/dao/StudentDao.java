@@ -4,10 +4,9 @@ import com.company.sql.jdbc.school.domain.Course;
 import com.company.sql.jdbc.school.domain.Student;
 
 import java.util.List;
+import java.util.Set;
 
 public interface StudentDao extends CrudDao<Student> {
-
-    void saveStudentOnCourses(Student student);
 
     void deleteStudentFromCourse(Integer studentId, Integer courseId);
 
