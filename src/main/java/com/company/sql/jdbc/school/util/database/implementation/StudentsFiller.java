@@ -1,7 +1,7 @@
 package com.company.sql.jdbc.school.util.database.implementation;
 
 import com.company.sql.jdbc.school.exception.DaoException;
-import com.company.sql.jdbc.school.util.ConnectionManager;
+import com.company.sql.jdbc.school.util.DataSource;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,12 +24,12 @@ public class StudentsFiller {
     public void fillTableStudents(String studentsFirstName, String studentsLastName) {
         List<String> studentsFirstNameList = parseStudentName(Path.of(studentsFirstName));
         List<String> studentsLastNameList = parseStudentName(Path.of(studentsLastName));
-        try (var connection = ConnectionManager.get();
+        try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
-            for (int i = 1; i <= 200; i++) {
 
+            for (int i = 1; i <= 200; i++) {
                 preparedStatement.setInt(1, i);
-                preparedStatement.setInt(2, (int) (Math.random() * (20 - 1 + 1)) + 1);
+                preparedStatement.setInt(2, (int) (Math.random() * (10 - 1 + 1)) + 1);
                 preparedStatement.setString(3, randomizeStudentName(studentsFirstNameList));
                 preparedStatement.setString(4, randomizeStudentName(studentsLastNameList));
                 preparedStatement.executeUpdate();
@@ -50,10 +50,6 @@ public class StudentsFiller {
     }
 
     private String randomizeStudentName(List<String> nameList) {
-        var result = "";
-        Random rand = new Random();
-        var randomElement = nameList.get(rand.nextInt(nameList.size()));
-
-        return randomElement;
+        return nameList.get(new Random().nextInt(nameList.size()));
     }
 }

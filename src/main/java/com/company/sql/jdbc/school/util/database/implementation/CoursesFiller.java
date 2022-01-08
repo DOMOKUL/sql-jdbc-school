@@ -1,7 +1,7 @@
 package com.company.sql.jdbc.school.util.database.implementation;
 
 import com.company.sql.jdbc.school.exception.DaoException;
-import com.company.sql.jdbc.school.util.ConnectionManager;
+import com.company.sql.jdbc.school.util.DataSource;
 import com.company.sql.jdbc.school.util.database.DataBaseFiller;
 
 import java.io.FileNotFoundException;
@@ -23,7 +23,7 @@ public class CoursesFiller implements DataBaseFiller {
     public void dataBaseFill(String filePath) throws FileNotFoundException {
         LinkedHashMap<String,String> courses = parseCourseName(Path.of(filePath));
         int i=1;
-        try (var connection = ConnectionManager.get();
+        try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SAVE_SQL)) {
             for (Map.Entry<String,String> entry: courses.entrySet()) {
 

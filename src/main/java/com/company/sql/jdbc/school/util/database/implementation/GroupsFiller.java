@@ -1,7 +1,7 @@
 package com.company.sql.jdbc.school.util.database.implementation;
 
 import com.company.sql.jdbc.school.exception.DaoException;
-import com.company.sql.jdbc.school.util.ConnectionManager;
+import com.company.sql.jdbc.school.util.DataSource;
 import com.company.sql.jdbc.school.util.database.DataBaseFiller;
 
 import java.io.FileNotFoundException;
@@ -27,7 +27,7 @@ public class GroupsFiller implements DataBaseFiller {
     public void dataBaseFill(String filePath) throws FileNotFoundException {
         List<String> groups = parseGroupName(Path.of(filePath));
         Collections.shuffle(groups);
-        try (var connection = ConnectionManager.get();
+        try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
             for (int i = 1; i <= 10; i++) {
                 preparedStatement.setInt(1, i);
