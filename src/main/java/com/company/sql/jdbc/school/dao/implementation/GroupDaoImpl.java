@@ -11,15 +11,6 @@ import java.util.*;
 
 public class GroupDaoImpl implements GroupDao {
 
-    private static final GroupDaoImpl INSTANCE = new GroupDaoImpl();
-
-    private GroupDaoImpl() {
-    }
-
-    public static GroupDaoImpl getInstance() {
-        return INSTANCE;
-    }
-
     @Override
     public void create(Group group) {
         try (var connection = DataSource.getConnection();
@@ -36,7 +27,7 @@ public class GroupDaoImpl implements GroupDao {
     }
 
     @Override
-    public Object findById(Integer id) {
+    public Optional<Group> findById(Integer id) {
         try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find group by id.sql"))) {
             preparedStatement.setInt(1, id);

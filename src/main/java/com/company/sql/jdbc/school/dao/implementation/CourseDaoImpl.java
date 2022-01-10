@@ -15,15 +15,6 @@ import java.util.Optional;
 
 public class CourseDaoImpl implements CourseDao {
 
-    private static final CourseDaoImpl INSTANCE = new CourseDaoImpl();
-
-    private CourseDaoImpl() {
-    }
-
-    public static CourseDaoImpl getInstance() {
-        return INSTANCE;
-    }
-
     @Override
     public Integer deleteCourseStudent(Integer student_id, Integer course_id) {
         return null;

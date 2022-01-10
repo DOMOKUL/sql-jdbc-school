@@ -24,7 +24,7 @@ public class GroupsFiller implements DataBaseFiller {
             """;
 
     @Override
-    public void dataBaseFill(String filePath) throws FileNotFoundException {
+    public void fillDatabase(String filePath) throws FileNotFoundException {
         List<String> groups = parseGroupName(Path.of(filePath));
         Collections.shuffle(groups);
         try (var connection = DataSource.getConnection();

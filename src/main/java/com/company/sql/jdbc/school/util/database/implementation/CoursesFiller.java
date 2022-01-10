@@ -20,7 +20,7 @@ public class CoursesFiller implements DataBaseFiller {
             """;
 
     @Override
-    public void dataBaseFill(String filePath) throws FileNotFoundException {
+    public void fillDatabase(String filePath) throws FileNotFoundException {
         LinkedHashMap<String,String> courses = parseCourseName(Path.of(filePath));
         int i=1;
         try (var connection = DataSource.getConnection();

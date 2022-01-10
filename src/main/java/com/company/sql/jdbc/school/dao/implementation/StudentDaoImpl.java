@@ -12,16 +12,6 @@ import java.util.*;
 
 public class StudentDaoImpl implements StudentDao {
 
-    private static final StudentDaoImpl INSTANCE = new StudentDaoImpl();
-
-    private StudentDaoImpl() {
-    }
-
-    public static StudentDaoImpl getInstance() {
-        return INSTANCE;
-    }
-
-
     @Override
     public void deleteStudentFromCourse(Integer studentId, Integer courseId) {
         try (var connection = DataSource.getConnection();
@@ -81,7 +71,7 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public Object findById(Integer id) {
+    public Optional<Student> findById(Integer id) {
         try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find student by id.sql"))) {
             preparedStatement.setInt(1, id);

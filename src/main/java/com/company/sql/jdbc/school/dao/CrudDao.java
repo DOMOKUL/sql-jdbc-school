@@ -2,12 +2,13 @@ package com.company.sql.jdbc.school.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public interface CrudDao<E> {
 
     void create(E t) throws SQLException;
 
-    Object findById(Integer id);
+    Optional<E> findById(Integer id);
 
     List<E> findAll();
 
