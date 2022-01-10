@@ -1,12 +1,7 @@
 package com.company.sql.jdbc.school;
 
-import com.company.sql.jdbc.school.dao.GroupDao;
-import com.company.sql.jdbc.school.dao.implementation.CourseDaoImpl;
-import com.company.sql.jdbc.school.dao.implementation.GroupDaoImpl;
-import com.company.sql.jdbc.school.dao.implementation.StudentDaoImpl;
-import com.company.sql.jdbc.school.domain.Course;
+import com.company.sql.jdbc.school.dao.impl.GroupDaoImpl;
 import com.company.sql.jdbc.school.domain.Group;
-import com.company.sql.jdbc.school.util.database.implementation.StudentsFiller;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
@@ -14,10 +9,6 @@ import java.sql.SQLException;
 public class DaoRunner {
 
     public static void main(String[] args) throws FileNotFoundException, SQLException {
-        var groupDao = GroupDaoImpl.getInstance();
-        var group = new Group(12,"SR-12");
-        groupDao.create(group);
-
 
 //        StudentDao.getInstance().showAllStudents();
 //        System.out.println();

@@ -10,7 +10,7 @@ public class DaoException extends RuntimeException{
         super(message);
     }
 
-    public DaoException(String message, Throwable throwable){
-        super(message, throwable);
+    public DaoException(Throwable cause){
+        super(cause);
     }
 }

@@ -1,4 +1,4 @@
-package com.company.sql.jdbc.school.dao.implementation;
+package com.company.sql.jdbc.school.dao.impl;
 
 import com.company.sql.jdbc.school.dao.StudentDao;
 import com.company.sql.jdbc.school.domain.Course;
@@ -21,7 +21,7 @@ public class StudentDaoImpl implements StudentDao {
         preparedStatement.executeUpdate();
         }
         catch (Exception cause) {
-            throw new DaoException("delete student from course fail", cause);
+            throw new DaoException("Delete student from course fail");
         }
     }
 
@@ -37,12 +37,12 @@ public class StudentDaoImpl implements StudentDao {
             }
             return students;
         } catch (Exception cause) {
-            throw new DaoException("Getting students from course fail ", cause);
+            throw new DaoException("Course with id: " + course.courseId() + " is not found");
         }
     }
 
     @Override
-    public void addCourseSet(Student student) {
+    public void addStudentCourseSet(Student student) {
         try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create courses_students.sql"))) {
             for (Integer courseId : student.courses()) {
@@ -51,7 +51,7 @@ public class StudentDaoImpl implements StudentDao {
                 preparedStatement.executeUpdate();
             }
         } catch (Exception cause) {
-            throw new DaoException("add course to student fail", cause);
+            throw new DaoException("Student with id: " + student.studentId() + " is not found");
         }
     }
 
@@ -66,7 +66,7 @@ public class StudentDaoImpl implements StudentDao {
             preparedStatement.executeUpdate();
 
         } catch (Exception cause) {
-            throw new DaoException("Creating student fail", cause);
+            throw new DaoException("Student with id: " + student.studentId() + " is already exists");
         }
     }
 
@@ -82,7 +82,7 @@ public class StudentDaoImpl implements StudentDao {
             }
             return Optional.ofNullable(student);
         } catch (Exception cause) {
-            throw new DaoException("find student fail", cause);
+            throw new DaoException("Student with id: " + id + " is not found");
         }
     }
 
@@ -97,7 +97,7 @@ public class StudentDaoImpl implements StudentDao {
             }
             return students;
         } catch (Exception cause) {
-            throw new DaoException("find student fail", cause);
+            throw new DaoException("No students found");
         }
     }
 
@@ -111,7 +111,7 @@ public class StudentDaoImpl implements StudentDao {
             preparedStatement.setString(4, student.lastName());
             preparedStatement.executeUpdate();
         } catch (Exception cause) {
-            throw new DaoException("update student fail", cause);
+            throw new DaoException("Student with id: " + student.studentId() + " is not found");
         }
     }
 
@@ -121,10 +121,8 @@ public class StudentDaoImpl implements StudentDao {
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that delete student by id.sql"))) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
-        } catch (SQLException cause) {
-            throw new DaoException("delete student fail", cause);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception cause) {
+            throw new DaoException("Student with id: " + id + " is not found");
         }
     }
 

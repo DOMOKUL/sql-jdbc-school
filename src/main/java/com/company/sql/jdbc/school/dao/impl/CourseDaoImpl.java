@@ -1,4 +1,4 @@
-package com.company.sql.jdbc.school.dao.implementation;
+package com.company.sql.jdbc.school.dao.impl;
 
 import com.company.sql.jdbc.school.dao.CourseDao;
 import com.company.sql.jdbc.school.domain.Course;
@@ -30,7 +30,7 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.executeUpdate();
 
         } catch (Exception cause) {
-            throw new DaoException("Creating course fail", cause);
+            throw new DaoException("Course with id: " + course.courseId() + " is already exists");
         }
     }
 
@@ -38,7 +38,7 @@ public class CourseDaoImpl implements CourseDao {
     public Optional<Course> findById(Integer id) {
         try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find course by id.sql"))) {
-            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(1, Math.toIntExact(id));
             var resultSet = preparedStatement.executeQuery();
             Course course = null;
             if (resultSet.next()) {
@@ -46,7 +46,7 @@ public class CourseDaoImpl implements CourseDao {
             }
             return Optional.ofNullable(course);
         } catch (Exception cause) {
-            throw new DaoException("find course fail", cause);
+            throw new DaoException("Course with id: " + id + " is not found");
         }
     }
 
@@ -61,7 +61,7 @@ public class CourseDaoImpl implements CourseDao {
             }
             return course;
         } catch (Exception cause) {
-            throw new DaoException("find course fail", cause);
+            throw new DaoException("No courses found");
         }
     }
 
@@ -74,7 +74,7 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.setString(3, course.courseDescription());
             preparedStatement.executeUpdate();
         } catch (Exception cause) {
-            throw new DaoException("update fail", cause);
+            throw new DaoException("Course with id: " + course.courseId() + " is not found");
         }
     }
 
@@ -85,7 +85,7 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (Exception cause) {
-            throw new DaoException("delete course fail", cause);
+            throw new DaoException("Course with id: " + id + "is not found");
         }
     }
 

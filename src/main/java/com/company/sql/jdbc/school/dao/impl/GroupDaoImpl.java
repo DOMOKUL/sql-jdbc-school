@@ -1,4 +1,4 @@
-package com.company.sql.jdbc.school.dao.implementation;
+package com.company.sql.jdbc.school.dao.impl;
 
 import com.company.sql.jdbc.school.dao.GroupDao;
 import com.company.sql.jdbc.school.domain.Group;
@@ -6,7 +6,9 @@ import com.company.sql.jdbc.school.exception.DaoException;
 import com.company.sql.jdbc.school.util.DataSource;
 import com.company.sql.jdbc.school.util.SqlFileReader;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 public class GroupDaoImpl implements GroupDao {
@@ -19,10 +21,9 @@ public class GroupDaoImpl implements GroupDao {
             preparedStatement.setString(2, group.groupName());
             preparedStatement.executeUpdate();
 
-        } catch (SQLException cause) {
-            throw new DaoException("Creating group fail", cause);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception cause) {
+            throw new DaoException("Group with id: " + group.groupId() + " is already exist");
+
         }
     }
 
@@ -38,7 +39,7 @@ public class GroupDaoImpl implements GroupDao {
             }
             return Optional.ofNullable(group);
         } catch (Exception cause) {
-            throw new DaoException("find group fail", cause);
+            throw new DaoException("Group with id: " + id + " is not found");
         }
     }
 
@@ -53,7 +54,7 @@ public class GroupDaoImpl implements GroupDao {
             }
             return groups;
         } catch (Exception cause) {
-            throw new DaoException("find group fail", cause);
+            throw new DaoException("No groups found");
         }
     }
 
@@ -65,7 +66,7 @@ public class GroupDaoImpl implements GroupDao {
             preparedStatement.setString(2, group.groupName());
             preparedStatement.executeUpdate();
         } catch (Exception cause) {
-            throw new DaoException("update group fail", cause);
+            throw new DaoException("Group with id: " + group.groupId() + " is not found");
         }
     }
 
@@ -76,13 +77,25 @@ public class GroupDaoImpl implements GroupDao {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (Exception cause) {
-            throw new DaoException("Delete group fail", cause);
+            throw new DaoException("Group with id: " + id + " is not found");
         }
     }
 
     @Override
     public List<Group> getGroupsWithLessSomeNumberEqualsStudents(Integer number) {
-        return null;
+        List<Group> result = new ArrayList<>();
+        try (var connection = DataSource.getConnection();
+             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find groups with less some number students.sql"))) {
+            preparedStatement.setInt(1, number);
+            var resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Group group = new Group(resultSet.getInt("group_id"),resultSet.getString("group_name"));
+                result.add(group);
+            }
+            return result;
+        } catch (Exception cause) {
+            throw new DaoException("No groups lower than this number: " + number);
+        }
     }
 
     @Override
@@ -91,7 +104,7 @@ public class GroupDaoImpl implements GroupDao {
         try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that count students into group.sql"))) {
             var resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 result.put(
                         resultSet.getString("name"),
                         resultSet.getInt("count")
@@ -99,7 +112,23 @@ public class GroupDaoImpl implements GroupDao {
             }
             return result;
         } catch (Exception cause) {
-            throw new DaoException("count student fail", cause);
+            throw new DaoException("Count student is fail");
+        }
+    }
+
+    @Override
+    public Optional<Group> getGroupByName(String groupName) {
+        try (var connection = DataSource.getConnection();
+             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find group by name.sql"))) {
+            preparedStatement.setString(2, groupName);
+            var resultSet = preparedStatement.executeQuery();
+            Group group = null;
+            if (resultSet.next()) {
+                group = buildGroup(resultSet);
+            }
+            return Optional.ofNullable(group);
+        } catch (Exception cause) {
+            throw new DaoException("Group with this name: " + groupName + " is not exists");
         }
     }
 

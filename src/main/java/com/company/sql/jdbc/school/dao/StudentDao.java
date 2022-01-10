@@ -11,5 +11,5 @@ public interface StudentDao extends CrudDao<Student> {
 
     List<Student> findStudentsByCourseName(Course course);
 
-    void addCourseSet(Student student);
+    void addStudentCourseSet(Student student);
 }

@@ -6,13 +6,13 @@ import java.util.Optional;
 
 public interface CrudDao<E> {
 
-    void create(E t) throws SQLException;
+    void create(E e) throws SQLException;
 
     Optional<E> findById(Integer id);
 
     List<E> findAll();
 
-    void update(E t);
+    void update(E e);
 
     void delete(Integer id);
 }
