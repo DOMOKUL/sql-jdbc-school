@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface StudentService {
 
-    List<Student> getAllStudentsWithThisCourseName(Course course);
+    List<Student> getAllStudentsWithThisCourseName(String courseName);
 
     void saveStudent(Student student);
 
     void deleteStudent(Integer id);
 
-    void addStudentToCourse(Student student);
+    void addStudentToCourse(Integer studentId, Integer courseId);
 
     List<Student> showAllStudent();
 

@@ -9,7 +9,7 @@ public interface StudentDao extends CrudDao<Student> {
 
     void deleteStudentFromCourse(Integer studentId, Integer courseId);
 
-    List<Student> findStudentsByCourseName(Course course);
+    List<Student> findStudentsByCourseName(String courseName);
 
-    void addStudentCourseSet(Student student);
+    void addStudentCourse(Integer studentId, Integer courseId);
 }

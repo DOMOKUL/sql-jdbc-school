@@ -35,7 +35,7 @@ public class StudentsFiller {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException cause) {
-            throw new DaoException("fill table students fail ", cause);
+            throw new DaoException("fill table students fail ");
         }
     }
 

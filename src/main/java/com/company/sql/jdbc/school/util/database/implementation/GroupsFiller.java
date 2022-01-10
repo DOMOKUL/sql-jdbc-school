@@ -35,7 +35,7 @@ public class GroupsFiller implements DataBaseFiller {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException cause) {
-            throw new DaoException("fill table groups fail ", cause);
+            throw new DaoException("fill table groups fail ");
         }
     }
 

@@ -16,11 +16,6 @@ import java.util.Optional;
 public class CourseDaoImpl implements CourseDao {
 
     @Override
-    public Integer deleteCourseStudent(Integer student_id, Integer course_id) {
-        return null;
-    }
-
-    @Override
     public void create(Course course) {
         try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/11 SQL query that create a course.sql"), Statement.RETURN_GENERATED_KEYS)) {

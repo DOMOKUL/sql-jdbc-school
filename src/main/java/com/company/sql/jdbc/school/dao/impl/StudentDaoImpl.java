@@ -26,10 +26,10 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public List<Student> findStudentsByCourseName(Course course) {
+    public List<Student> findStudentsByCourseName(String courseName) {
         try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find all students by course name.sql"))) {
-            preparedStatement.setInt(1, course.courseId());
+            preparedStatement.setString(1, courseName);
             var resultSet = preparedStatement.executeQuery();
             List<Student> students = new ArrayList<>();
             while (resultSet.next()) {
@@ -37,21 +37,20 @@ public class StudentDaoImpl implements StudentDao {
             }
             return students;
         } catch (Exception cause) {
-            throw new DaoException("Course with id: " + course.courseId() + " is not found");
+            throw new DaoException("Course with name: " + courseName + " is not found");
         }
     }
 
     @Override
-    public void addStudentCourseSet(Student student) {
+    public void addStudentCourse(Integer studentId, Integer courseId) {
         try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create courses_students.sql"))) {
-            for (Integer courseId : student.courses()) {
-                preparedStatement.setInt(1, student.studentId());
+                preparedStatement.setInt(1, studentId);
                 preparedStatement.setInt(2, courseId);
-                preparedStatement.executeUpdate();
-            }
+                preparedStatement.executeQuery();
+
         } catch (Exception cause) {
-            throw new DaoException("Student with id: " + student.studentId() + " is not found");
+            throw new DaoException("Student with id: " + studentId + " is not found");
         }
     }
 
@@ -131,8 +130,7 @@ public class StudentDaoImpl implements StudentDao {
                 resultSet.getInt("student_id"),
                 resultSet.getInt("group_id"),
                 resultSet.getString("first_name"),
-                resultSet.getString("last_name"),
-                Collections.singleton(resultSet.getInt("courses"))
+                resultSet.getString("last_name")
         );
     }
 }

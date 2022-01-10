@@ -33,7 +33,7 @@ public class CoursesFiller implements DataBaseFiller {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException cause) {
-            throw new DaoException("fill table courses fail ", cause);
+            throw new DaoException("fill table courses fail ");
         }
     }
 

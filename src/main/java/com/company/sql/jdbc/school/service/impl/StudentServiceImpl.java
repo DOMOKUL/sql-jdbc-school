@@ -18,8 +18,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getAllStudentsWithThisCourseName(Course course) {
-        return studentDao.findStudentsByCourseName(course);
+    public List<Student> getAllStudentsWithThisCourseName(String courseName) {
+        return studentDao.findStudentsByCourseName(courseName);
     }
 
     @Override
@@ -37,8 +37,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void addStudentToCourse(Student student) {
-        studentDao.addStudentCourseSet(student);
+    public void addStudentToCourse(Integer studentId, Integer courseId) {
+        studentDao.addStudentCourse(studentId,courseId);
     }
 
     @Override
