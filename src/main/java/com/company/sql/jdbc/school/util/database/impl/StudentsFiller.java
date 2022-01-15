@@ -7,7 +7,7 @@ import com.company.sql.jdbc.school.util.SqlFileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -20,18 +20,34 @@ public class StudentsFiller {
         List<String> studentsFirstNameList = parseStudentName(Path.of(studentsFirstName));
         List<String> studentsLastNameList = parseStudentName(Path.of(studentsLastName));
         try (var connection = DataSource.getConnection();
-             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a student.sql"), Statement.RETURN_GENERATED_KEYS)) {
+             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a student.sql"))) {
 
             for (int i = 1; i <= 200; i++) {
                 preparedStatement.setInt(1, i);
-                preparedStatement.setInt(2, (int) (Math.random() * (10 - 1 + 1)) + 1);
+                preparedStatement.setInt(2, 1 + (int) (Math.random() * (10)));
                 preparedStatement.setString(3, randomizeStudentName(studentsFirstNameList));
                 preparedStatement.setString(4, randomizeStudentName(studentsLastNameList));
                 preparedStatement.executeUpdate();
             }
         } catch (Exception cause) {
-            throw new DaoException("Fill table students fail ");
+            throw new DaoException("Fill table students fail " + cause);
         }
+    }
+
+    public void fillTableStudentsCourses() {
+        try (var connection = DataSource.getConnection();
+             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create courses_students.sql"))) {
+            for (int i = 1; i < 1 + (int) (Math.random() * 400); i++) {
+                preparedStatement.setInt(1, 1 + (int) (Math.random() * 200));
+                preparedStatement.setInt(2, 1 + (int) (Math.random() * 10));
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException cause) {
+            throw new DaoException("Fill table students_courses fail " + cause);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private List<String> parseStudentName(Path filePath) {

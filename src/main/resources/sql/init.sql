@@ -1,23 +1,4 @@
-CREATE DATABASE task7;
-
-CREATE USER postgres with encrypted password 'root';
-
-GRANT ALL PRIVILEGES ON database task7 TO postgres;
-
 drop table if exists  groups, students, courses, students_courses cascade;
-
-CREATE TABLE students
-(
-    student_id INTEGER PRIMARY KEY ,
-    group_id   INTEGER ,
-    first_name VARCHAR(255) NOT NULL,
-    last_name  VARCHAR(255) NOT NULL,
-    CONSTRAINT fk_groups
-        FOREIGN KEY (group_id)
-            REFERENCES groups (group_id)
-            ON DELETE SET NULL
-);
-CREATE UNIQUE INDEX students_unique_id_idx ON students (student_id);
 
 CREATE TABLE groups
 (
@@ -33,6 +14,19 @@ CREATE TABLE courses
     description VARCHAR             NOT NULL
 );
 CREATE UNIQUE INDEX courses_unique_id_idx ON courses (course_id);
+
+CREATE TABLE students
+(
+    student_id INTEGER PRIMARY KEY,
+    group_id   INTEGER NOT NULL,
+    first_name VARCHAR NOT NULL,
+    last_name  VARCHAR NOT NULL,
+    CONSTRAINT fk_groups
+        FOREIGN KEY (group_id)
+            REFERENCES groups (group_id)
+            ON DELETE SET NULL
+);
+CREATE UNIQUE INDEX students_unique_id_idx ON students (student_id);
 
 CREATE TABLE students_courses
 (

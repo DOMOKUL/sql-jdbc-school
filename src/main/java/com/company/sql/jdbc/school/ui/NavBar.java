@@ -25,91 +25,90 @@ public class NavBar {
     public void controlMenu() {
         var scanner = new Scanner(System.in);
         while (true) {
+            var queryScanner = new Scanner(System.in);
             System.out.println("""
                     Введите:
-                    a.Показать все группы с указанным числом студентов
-                    b.Показать всех студентов, относящихся к данной группе
-                    с.Добавить нового студента
-                    d.Удалить студента по id
-                    e.Добавить студента к курсу
-                    f.Удалить студента из курса
-                    g.Показать всех студентов
-                    h.Создать группу
-                    i.Создать курс
-                    exit.Прекратить выполнение
+                    1.Показать все группы с указанным числом студентов
+                    2.Показать всех студентов, относящихся к данной группе
+                    3.Добавить нового студента
+                    4.Удалить студента по id
+                    5.Добавить студента к курсу
+                    6.Удалить студента из курса
+                    7.Показать всех студентов
+                    8.Создать группу
+                    9.Создать курс
+                    0.Прекратить выполнение
                     """);
-            var input = scanner.nextLine();
-            if ("exit".equals(input)) {
+            var input = scanner.nextInt();
+            if (input == 0) {
                 break;
-            } else if ("a".equals(input)) {
+            } else if (input == 1) {
                 System.out.println("Введите количество студентов: ");
-                var studentCount = scanner.nextLine();
+                var studentCount = queryScanner.nextLine();
                 getAllGroupsWithLessOrEqualsStudentCountFormat(studentCount);
-            } else if ("b".equals(input)) {
+            } else if (input == 2) {
                 System.out.println("Введите название курса: ");
-                var courseName = scanner.nextLine();
-                System.out.println(student.getAllStudentsWithThisCourseName(courseName));
-            } else if ("c".equals(input)) {
+                var courseName = queryScanner.nextLine();
+                var allStudentsWithThisCourseName = student.getAllStudentsWithThisCourseName(courseName);
+                allStudentsWithThisCourseName.forEach(System.out::println);
+            } else if (input == 3) {
                 System.out.println("Введите id студента: ");
-                var studentId = scanner.nextInt();
+                var studentId = queryScanner.nextInt();
                 System.out.println("Введите id группы: ");
-                var groupId = scanner.nextInt();
-                System.out.println("Введите имя и фамилию студента: ");
-                createStudentFormat(studentId, groupId, scanner.nextLine());
-            } else if ("d".equals(input)) {
+                var groupId = queryScanner.nextInt();
+                System.out.println("Введите имя студента: ");
+                var firstName = scanner.next();
+                System.out.println("Введите фамилию студента: ");
+                var lastName = queryScanner.next();
+                createStudentFormat(studentId, groupId, firstName, lastName);
+            } else if (input == 4) {
                 System.out.println("Введите id студента: ");
-                var studentId = scanner.nextInt();
+                var studentId = queryScanner.nextInt();
                 student.deleteStudent(studentId);
                 System.out.println("Студент с id: " + studentId + " успешно удален");
-            } else if ("e".equals(input)) {
+            } else if (input == 5) {
                 System.out.println("Введите id студента: ");
-                var studentId = scanner.nextInt();
+                var studentId = queryScanner.nextInt();
                 System.out.println("Введите id курса: ");
-                var courseId = scanner.nextInt();
+                var courseId = queryScanner.nextInt();
                 student.addStudentToCourse(studentId, courseId);
                 System.out.println("Студент с id: " + studentId + " успешно создан");
-            } else if ("f".equals(input)) {
+            } else if (input == 6) {
                 System.out.println("Введите id студента: ");
-                var studentId = scanner.nextInt();
+                var studentId = queryScanner.nextInt();
                 System.out.println("Введите id курса: ");
-                var courseId = scanner.nextInt();
+                var courseId = queryScanner.nextInt();
                 student.deleteStudentFromCourse(studentId, courseId);
                 System.out.println("Студент с id: " + studentId + " успешно удален");
-            } else if ("g".equals(input)) {
+            } else if (input == 7) {
                 student.getAllStudents().forEach(System.out::println);
-            } else if ("h".equals(input)) {
+            } else if (input == 8) {
                 System.out.println("Введите id группы: ");
-                var groupId = scanner.nextInt();
+                var groupId = queryScanner.nextInt();
                 System.out.println("Введите имя группы: ");
-                var groupName = scanner.nextLine();
+                var groupName = queryScanner.next();
                 createGroupFormat(groupId, groupName);
-            } else if ("i".equals(input)) {
+            } else if (input == 9) {
                 System.out.println("Введите id курса: ");
-                var courseId = scanner.nextInt();
+                var courseId = queryScanner.nextInt();
                 System.out.println("Введите название курса: ");
-                var courseName = scanner.next();
+                var courseName = queryScanner.next();
                 System.out.println("Введите описание курса: ");
-                var courseDescription = scanner.next();
+                var courseDescription = queryScanner.next();
                 createCourseFormat(courseId, courseName, courseDescription);
-            } else {
-                System.out.println("Неверный ввод! Повторите попытку!");
-                break;
             }
         }
     }
 
     private void getAllGroupsWithLessOrEqualsStudentCountFormat(String count) {
         var groups = group.getAllGroupsWithLessOrEqualsStudentCount(Integer.valueOf(count));
+        System.out.println("Группы с числом студентов, меньше: " + count);
         for (Map.Entry entry : groups.entrySet()) {
             System.out.println("Название группы: " + entry.getKey() + " Количество студентов: " + entry.getValue());
         }
-        System.out.println("Группы с числом студентов, меньше: " + count);
     }
 
-    private void createStudentFormat(Integer studentId, Integer groupId, String studentName) {
-        var splitName = studentName.split(", ");
-        var firstName = splitName[0];
-        var lastName = splitName[1];
+    private void createStudentFormat(Integer studentId, Integer groupId, String firstName, String lastName) {
         student.createStudent(new Student(studentId, groupId, firstName, lastName));
         System.out.println("Студент с id: " + studentId + " был создан");
     }

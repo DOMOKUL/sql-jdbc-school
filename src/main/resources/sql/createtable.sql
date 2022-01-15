@@ -1,8 +1,6 @@
-CREATE SCHEMA IF NOT EXISTS university;
-
 CREATE SEQUENCE global_seq START 100000;
 
-CREATE TABLE IF NOT EXISTS students
+CREATE TABLE students
 (
     student_id INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     group_id   INTEGER NOT NULL,
@@ -15,14 +13,14 @@ CREATE TABLE IF NOT EXISTS students
 );
 CREATE UNIQUE INDEX students_unique_id_idx ON students (student_id);
 
-CREATE TABLE IF NOT EXISTS groups
+CREATE TABLE groups
 (
     group_id INTEGER NOT NULL,
     name     VARCHAR NOT NULL
 );
 CREATE UNIQUE INDEX groups_unique_id_idx ON groups (group_id);
 
-CREATE TABLE IF NOT EXISTS courses
+CREATE TABLE courses
 (
     course_id   INTEGER PRIMARY KEY NOT NULL,
     name        VARCHAR             NOT NULL,
@@ -42,4 +40,3 @@ CREATE TABLE students_courses
         FOREIGN KEY (course_id) REFERENCES courses (course_id)
             ON UPDATE CASCADE ON DELETE CASCADE
 );
-DROP TABLE students_courses;
