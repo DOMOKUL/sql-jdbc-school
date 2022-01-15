@@ -1,6 +1,6 @@
-package com.company.sql.jdbc.school.service.exceptions;
+package com.company.sql.jdbc.school.service.exception;
 
-import com.company.sql.jdbc.school.exception.DaoException;
+import com.company.sql.jdbc.school.dao.exception.DaoException;
 
 public class ServiceException extends DaoException {
 

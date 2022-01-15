@@ -6,7 +6,7 @@ import java.util.*;
 
 public interface GroupService {
 
-    List<Group> getAllGroupsWithLessOrEqualsStudentCount(Integer studentCount);
+    Map<String,Integer> getAllGroupsWithLessOrEqualsStudentCount(Integer studentCount);
 
-    void saveGroup(Group group);
+    void createGroup(Group group);
 }

@@ -8,10 +8,10 @@ drop table if exists  groups, students, courses, students_courses cascade;
 
 CREATE TABLE students
 (
-    student_id INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    group_id   INTEGER NOT NULL,
-    first_name VARCHAR NOT NULL,
-    last_name  VARCHAR NOT NULL,
+    student_id INTEGER PRIMARY KEY ,
+    group_id   INTEGER ,
+    first_name VARCHAR(255) NOT NULL,
+    last_name  VARCHAR(255) NOT NULL,
     CONSTRAINT fk_groups
         FOREIGN KEY (group_id)
             REFERENCES groups (group_id)
@@ -21,7 +21,7 @@ CREATE UNIQUE INDEX students_unique_id_idx ON students (student_id);
 
 CREATE TABLE groups
 (
-    group_id INTEGER NOT NULL,
+    group_id INTEGER NOT NULL PRIMARY KEY,
     name     VARCHAR NOT NULL
 );
 CREATE UNIQUE INDEX groups_unique_id_idx ON groups (group_id);

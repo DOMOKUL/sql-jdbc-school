@@ -2,12 +2,10 @@ package com.company.sql.jdbc.school.service.impl;
 
 import com.company.sql.jdbc.school.dao.CourseDao;
 import com.company.sql.jdbc.school.domain.Course;
-import com.company.sql.jdbc.school.domain.Student;
 import com.company.sql.jdbc.school.service.CourseService;
-import com.company.sql.jdbc.school.service.exceptions.ServiceException;
+import com.company.sql.jdbc.school.service.exception.ServiceException;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class CourseServiceImpl implements CourseService {
 

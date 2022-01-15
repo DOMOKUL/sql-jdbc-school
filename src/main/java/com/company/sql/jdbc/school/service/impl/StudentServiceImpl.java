@@ -1,10 +1,9 @@
 package com.company.sql.jdbc.school.service.impl;
 
 import com.company.sql.jdbc.school.dao.StudentDao;
-import com.company.sql.jdbc.school.domain.Course;
 import com.company.sql.jdbc.school.domain.Student;
 import com.company.sql.jdbc.school.service.StudentService;
-import com.company.sql.jdbc.school.service.exceptions.ServiceException;
+import com.company.sql.jdbc.school.service.exception.ServiceException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -23,7 +22,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void saveStudent(Student student) {
+    public void createStudent(Student student) {
         try {
             studentDao.create(student);
         } catch (SQLException cause) {
@@ -42,7 +41,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> showAllStudent() {
+    public List<Student> getAllStudents() {
         return studentDao.findAll();
     }
 

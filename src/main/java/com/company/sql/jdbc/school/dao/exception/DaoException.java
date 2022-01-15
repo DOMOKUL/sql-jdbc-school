@@ -1,4 +1,4 @@
-package com.company.sql.jdbc.school.exception;
+package com.company.sql.jdbc.school.dao.exception;
 
 public class DaoException extends RuntimeException{
 

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface GroupDao extends CrudDao<Group> {
 
-    List<Group> getGroupsWithLessSomeNumberEqualsStudents(Integer number);
+    Map<String,Integer> getGroupsWithLessSomeNumberEqualsStudents(Integer number);
 
     Map<String,Integer> getCountStudentsIntoGroups();
 

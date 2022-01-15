@@ -9,13 +9,13 @@ public interface StudentService {
 
     List<Student> getAllStudentsWithThisCourseName(String courseName);
 
-    void saveStudent(Student student);
+    void createStudent(Student student);
 
     void deleteStudent(Integer id);
 
     void addStudentToCourse(Integer studentId, Integer courseId);
 
-    List<Student> showAllStudent();
+    List<Student> getAllStudents();
 
     void deleteStudentFromCourse(Integer studentId, Integer courseId);
 

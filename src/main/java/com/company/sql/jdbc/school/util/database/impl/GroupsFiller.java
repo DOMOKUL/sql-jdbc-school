@@ -1,6 +1,6 @@
-package com.company.sql.jdbc.school.util.database.implementation;
+package com.company.sql.jdbc.school.util.database.impl;
 
-import com.company.sql.jdbc.school.exception.DaoException;
+import com.company.sql.jdbc.school.dao.exception.DaoException;
 import com.company.sql.jdbc.school.util.DataSource;
 import com.company.sql.jdbc.school.util.database.DataBaseFiller;
 

@@ -1,12 +1,12 @@
-package com.company.sql.jdbc.school.util.database.implementation;
+package com.company.sql.jdbc.school.util.database.impl;
 
-import com.company.sql.jdbc.school.exception.DaoException;
+import com.company.sql.jdbc.school.dao.exception.DaoException;
 import com.company.sql.jdbc.school.util.DataSource;
+import com.company.sql.jdbc.school.util.SqlFileReader;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +16,11 @@ import java.util.stream.Stream;
 
 public class StudentsFiller {
 
-    private static final String SAVE_SQL = """
-            INSERT INTO students(student_id, group_id, first_name, last_name)
-            VALUES (?, ?, ?, ?);
-            """;
-
     public void fillTableStudents(String studentsFirstName, String studentsLastName) {
         List<String> studentsFirstNameList = parseStudentName(Path.of(studentsFirstName));
         List<String> studentsLastNameList = parseStudentName(Path.of(studentsLastName));
         try (var connection = DataSource.getConnection();
-             var preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
+             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a student.sql"), Statement.RETURN_GENERATED_KEYS)) {
 
             for (int i = 1; i <= 200; i++) {
                 preparedStatement.setInt(1, i);
@@ -34,8 +29,8 @@ public class StudentsFiller {
                 preparedStatement.setString(4, randomizeStudentName(studentsLastNameList));
                 preparedStatement.executeUpdate();
             }
-        } catch (SQLException cause) {
-            throw new DaoException("fill table students fail ");
+        } catch (Exception cause) {
+            throw new DaoException("Fill table students fail ");
         }
     }
 
