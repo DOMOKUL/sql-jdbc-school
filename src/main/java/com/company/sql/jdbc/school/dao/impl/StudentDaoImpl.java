@@ -19,11 +19,10 @@ public class StudentDaoImpl implements StudentDao {
     public void deleteStudentFromCourse(Integer studentId, Integer courseId) {
         try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that delete student from course.sql"))) {
-        preparedStatement.setInt(1,studentId);
-        preparedStatement.setInt(2,courseId);
-        preparedStatement.executeUpdate();
-        }
-        catch (SQLException cause) {
+            preparedStatement.setInt(1, studentId);
+            preparedStatement.setInt(2, courseId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException cause) {
             throw new DaoException("Delete student from course fail");
         } catch (IOException e) {
             throw new DaoException("File not found");
@@ -52,9 +51,9 @@ public class StudentDaoImpl implements StudentDao {
     public void addStudentToCourse(Integer studentId, Integer courseId) {
         try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create courses_students.sql"))) {
-                preparedStatement.setInt(1, studentId);
-                preparedStatement.setInt(2, courseId);
-                preparedStatement.executeUpdate();
+            preparedStatement.setInt(1, studentId);
+            preparedStatement.setInt(2, courseId);
+            preparedStatement.executeUpdate();
 
         } catch (SQLException cause) {
             throw new DaoException(cause);
@@ -101,7 +100,7 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public List<Student> findAll() {
         try (var connection = DataSource.getConnection();
-             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find all students.sql"));) {
+             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find all students.sql"))) {
             var resultSet = preparedStatement.executeQuery();
             List<Student> students = new ArrayList<>();
             while (resultSet.next()) {
@@ -118,7 +117,7 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public void update(Student student) {
         try (var connection = DataSource.getConnection();
-             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that update student by id.sql"));) {
+             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that update student by id.sql"))) {
             preparedStatement.setInt(1, student.studentId());
             preparedStatement.setInt(2, student.groupId());
             preparedStatement.setString(3, student.firstName());

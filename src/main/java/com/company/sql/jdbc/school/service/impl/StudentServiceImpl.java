@@ -9,13 +9,7 @@ import com.company.sql.jdbc.school.service.exception.ServiceException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class StudentServiceImpl implements StudentService {
-
-    private final StudentDao studentDao;
-
-    public StudentServiceImpl(StudentDao studentDao) {
-        this.studentDao = studentDao;
-    }
+public record StudentServiceImpl(StudentDao studentDao) implements StudentService {
 
     @Override
     public List<Student> getAllStudentsWithThisCourseName(String courseName) {

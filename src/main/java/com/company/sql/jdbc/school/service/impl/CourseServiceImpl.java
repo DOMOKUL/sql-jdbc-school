@@ -7,13 +7,7 @@ import com.company.sql.jdbc.school.service.exception.ServiceException;
 
 import java.sql.SQLException;
 
-public class CourseServiceImpl implements CourseService {
-
-    private final CourseDao courseDao;
-
-    public CourseServiceImpl(CourseDao courseDao) {
-        this.courseDao = courseDao;
-    }
+public record CourseServiceImpl(CourseDao courseDao) implements CourseService {
 
     @Override
     public void createCourse(Course course) {

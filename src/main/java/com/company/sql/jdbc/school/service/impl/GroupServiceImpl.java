@@ -9,13 +9,7 @@ import com.company.sql.jdbc.school.service.exception.ServiceException;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class GroupServiceImpl implements GroupService {
-
-    private final GroupDao groupDao;
-
-    public GroupServiceImpl(GroupDao groupDao) {
-        this.groupDao = groupDao;
-    }
+public record GroupServiceImpl(GroupDao groupDao) implements GroupService {
 
     @Override
     public Map<String, Integer> getAllGroupsWithLessOrEqualsStudentCount(Integer studentCount) {

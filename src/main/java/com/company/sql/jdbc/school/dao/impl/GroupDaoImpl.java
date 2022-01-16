@@ -1,8 +1,8 @@
 package com.company.sql.jdbc.school.dao.impl;
 
 import com.company.sql.jdbc.school.dao.GroupDao;
-import com.company.sql.jdbc.school.domain.Group;
 import com.company.sql.jdbc.school.dao.exception.DaoException;
+import com.company.sql.jdbc.school.domain.Group;
 import com.company.sql.jdbc.school.util.DataSource;
 import com.company.sql.jdbc.school.util.SqlFileReader;
 
@@ -47,7 +47,7 @@ public class GroupDaoImpl implements GroupDao {
     @Override
     public List<Group> findAll() {
         try (var connection = DataSource.getConnection();
-             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find all groups.sql"));) {
+             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find all groups.sql"))) {
             var resultSet = preparedStatement.executeQuery();
             List<Group> groups = new ArrayList<>();
             while (resultSet.next()) {
@@ -62,7 +62,7 @@ public class GroupDaoImpl implements GroupDao {
     @Override
     public void update(Group group) {
         try (var connection = DataSource.getConnection();
-             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that update group by id.sql"));) {
+             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that update group by id.sql"))) {
             preparedStatement.setInt(1, group.groupId());
             preparedStatement.setString(2, group.groupName());
             preparedStatement.executeUpdate();
@@ -83,8 +83,8 @@ public class GroupDaoImpl implements GroupDao {
     }
 
     @Override
-    public Map<String,Integer> getGroupsWithLessSomeNumberEqualsStudents(Integer number) {
-        Map<String,Integer> result = new HashMap<>();
+    public Map<String, Integer> getGroupsWithLessSomeNumberEqualsStudents(Integer number) {
+        Map<String, Integer> result = new HashMap<>();
         try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find groups with less some number students.sql"))) {
             preparedStatement.setInt(1, number);
@@ -92,7 +92,7 @@ public class GroupDaoImpl implements GroupDao {
             while (resultSet.next()) {
                 var count = resultSet.getInt("count");
                 var name = resultSet.getString("name");
-                result.put(name,count);
+                result.put(name, count);
             }
             return result;
         } catch (SQLException cause) {

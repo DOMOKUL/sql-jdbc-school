@@ -1,8 +1,8 @@
 package com.company.sql.jdbc.school.dao.impl;
 
 import com.company.sql.jdbc.school.dao.CourseDao;
-import com.company.sql.jdbc.school.domain.Course;
 import com.company.sql.jdbc.school.dao.exception.DaoException;
+import com.company.sql.jdbc.school.domain.Course;
 import com.company.sql.jdbc.school.util.DataSource;
 import com.company.sql.jdbc.school.util.SqlFileReader;
 
@@ -53,7 +53,7 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public List<Course> findAll() {
         try (var connection = DataSource.getConnection();
-             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find all courses.sql"));) {
+             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find all courses.sql"))) {
             var resultSet = preparedStatement.executeQuery();
             List<Course> courses = new ArrayList<>();
             while (resultSet.next()) {
@@ -70,7 +70,7 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public void update(Course course) {
         try (var connection = DataSource.getConnection();
-             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that update course by id.sql"));) {
+             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that update course by id.sql"))) {
             preparedStatement.setInt(1, course.courseId());
             preparedStatement.setString(2, course.courseName());
             preparedStatement.setString(3, course.courseDescription());
