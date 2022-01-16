@@ -8,7 +8,7 @@ public interface CrudDao<E> {
 
     void create(E e) throws SQLException;
 
-    Object findById(Integer id);
+    Optional<E> findById(Integer id);
 
     List<E> findAll();
 

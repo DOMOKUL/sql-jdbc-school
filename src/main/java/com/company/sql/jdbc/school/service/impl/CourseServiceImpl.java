@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class CourseServiceImpl implements CourseService {
 
-    private CourseDao courseDao;
+    private final CourseDao courseDao;
 
     public CourseServiceImpl(CourseDaoImpl courseDao) {
         this.courseDao = courseDao;
