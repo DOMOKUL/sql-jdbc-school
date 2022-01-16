@@ -3,7 +3,9 @@ package com.company.sql.jdbc.school.util.database.impl;
 import com.company.sql.jdbc.school.dao.exception.DaoException;
 import com.company.sql.jdbc.school.util.DataSource;
 import com.company.sql.jdbc.school.util.SqlFileReader;
+import com.company.sql.jdbc.school.util.database.TableFiller;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,7 +16,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class StudentsFiller {
+public class StudentsFiller implements TableFiller {
 
     public void fillTableStudents(String studentsFirstName, String studentsLastName) {
         List<String> studentsFirstNameList = parseStudentName(Path.of(studentsFirstName));
@@ -62,5 +64,10 @@ public class StudentsFiller {
 
     private String randomizeStudentName(List<String> nameList) {
         return nameList.get(new Random().nextInt(nameList.size()));
+    }
+
+    @Override
+    public void fillDatabase(String filePath) throws FileNotFoundException {
+
     }
 }

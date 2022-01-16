@@ -55,11 +55,11 @@ public class CourseDaoImpl implements CourseDao {
         try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find all courses.sql"));) {
             var resultSet = preparedStatement.executeQuery();
-            List<Course> course = new ArrayList<>();
+            List<Course> courses = new ArrayList<>();
             while (resultSet.next()) {
-                course.add(buildCourse(resultSet));
+                courses.add(buildCourse(resultSet));
             }
-            return course;
+            return courses;
         } catch (SQLException cause) {
             throw new DaoException("No courses found");
         } catch (IOException e) {
