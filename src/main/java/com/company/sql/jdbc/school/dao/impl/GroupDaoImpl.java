@@ -9,7 +9,6 @@ import com.company.sql.jdbc.school.util.SqlFileReader;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.*;
 
 public class GroupDaoImpl implements GroupDao {
@@ -17,7 +16,7 @@ public class GroupDaoImpl implements GroupDao {
     @Override
     public void create(Group group) {
         try (var connection = DataSource.getConnection();
-             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a group.sql"), Statement.RETURN_GENERATED_KEYS)) {
+             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a group.sql"))) {
             preparedStatement.setInt(1, group.groupId());
             preparedStatement.setString(2, group.groupName());
             preparedStatement.executeUpdate();

@@ -9,7 +9,6 @@ import com.company.sql.jdbc.school.util.SqlFileReader;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +18,7 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public void create(Course course) {
         try (var connection = DataSource.getConnection();
-             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a course.sql"), Statement.RETURN_GENERATED_KEYS)) {
+             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a course.sql"))) {
             preparedStatement.setInt(1, course.courseId());
             preparedStatement.setString(2, course.courseName());
             preparedStatement.setString(3, course.courseDescription());
