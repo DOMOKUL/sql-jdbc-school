@@ -26,12 +26,12 @@ public class ApplicationRunner {
         try {
             SqlScriptRunner sqlScriptRunner = new SqlScriptRunner(DataSource.getConnection());
             sqlScriptRunner.runSqlScript(new StringReader("src/main/resources/sql/init.sql"));
-            DataBaseFiller dataBaseFiller = new DataBaseFiller(new CoursesFiller(), new GroupsFiller(), new StudentsFiller());
-            dataBaseFiller.createRandomDataInDataBase();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        DataBaseFiller dataBaseFiller = new DataBaseFiller(new CoursesFiller(), new GroupsFiller(), new StudentsFiller());
+        dataBaseFiller.createRandomDataInDataBase();
         CourseService courseService = new CourseServiceImpl(new CourseDaoImpl());
         GroupService groupService = new GroupServiceImpl(new GroupDaoImpl());
         StudentService studentService = new StudentServiceImpl(new StudentDaoImpl());

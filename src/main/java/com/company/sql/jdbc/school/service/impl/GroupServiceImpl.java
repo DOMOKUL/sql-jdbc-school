@@ -2,6 +2,7 @@ package com.company.sql.jdbc.school.service.impl;
 
 import com.company.sql.jdbc.school.dao.GroupDao;
 import com.company.sql.jdbc.school.dao.exception.DaoException;
+import com.company.sql.jdbc.school.dao.impl.GroupDaoImpl;
 import com.company.sql.jdbc.school.domain.Group;
 import com.company.sql.jdbc.school.service.GroupService;
 import com.company.sql.jdbc.school.service.exception.ServiceException;
@@ -9,7 +10,13 @@ import com.company.sql.jdbc.school.service.exception.ServiceException;
 import java.sql.SQLException;
 import java.util.Map;
 
-public record GroupServiceImpl(GroupDao groupDao) implements GroupService {
+public class GroupServiceImpl implements GroupService {
+
+    private GroupDao groupDao;
+
+    public GroupServiceImpl(GroupDaoImpl groupDao) {
+        this.groupDao = groupDao;
+    }
 
     @Override
     public Map<String, Integer> getAllGroupsWithLessOrEqualsStudentCount(Integer studentCount) {

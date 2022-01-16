@@ -7,7 +7,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.StringJoiner;
 
-public record SqlScriptRunner(Connection connection) {
+public class SqlScriptRunner {
+
+    private Connection connection;
+
+    public SqlScriptRunner(Connection connection) {
+        this.connection = connection;
+    }
 
     public void runSqlScript(Reader reader) {
         StringJoiner stringJoiner = new StringJoiner(" ");
@@ -26,9 +32,9 @@ public record SqlScriptRunner(Connection connection) {
     }
 
     private void executeSql(String query) {
-        try (var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile(query))) {
+        try (var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.executeUpdate();
-        } catch (SQLException | IOException cause) {
+        } catch (SQLException cause) {
             cause.printStackTrace();
         }
     }

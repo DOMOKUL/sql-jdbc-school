@@ -2,6 +2,7 @@ package com.company.sql.jdbc.school.service.impl;
 
 import com.company.sql.jdbc.school.dao.StudentDao;
 import com.company.sql.jdbc.school.dao.exception.DaoException;
+import com.company.sql.jdbc.school.dao.impl.StudentDaoImpl;
 import com.company.sql.jdbc.school.domain.Student;
 import com.company.sql.jdbc.school.service.StudentService;
 import com.company.sql.jdbc.school.service.exception.ServiceException;
@@ -9,7 +10,13 @@ import com.company.sql.jdbc.school.service.exception.ServiceException;
 import java.sql.SQLException;
 import java.util.List;
 
-public record StudentServiceImpl(StudentDao studentDao) implements StudentService {
+public class StudentServiceImpl implements StudentService {
+
+    private StudentDao studentDao;
+
+    public StudentServiceImpl(StudentDaoImpl studentDao) {
+        this.studentDao = studentDao;
+    }
 
     @Override
     public List<Student> getAllStudentsWithThisCourseName(String courseName) {
