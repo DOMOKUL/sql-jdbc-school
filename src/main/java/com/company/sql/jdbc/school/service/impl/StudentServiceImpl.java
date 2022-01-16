@@ -12,7 +12,7 @@ import java.util.List;
 
 public class StudentServiceImpl implements StudentService {
 
-    private StudentDao studentDao;
+    private final StudentDao studentDao;
 
     public StudentServiceImpl(StudentDaoImpl studentDao) {
         this.studentDao = studentDao;
@@ -28,12 +28,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void printAllStudentsWithThisCourseName(String courseName){
+    public void printAllStudentsWithThisCourseName(String courseName) {
         try {
             var students = studentDao.findStudentsByCourseName(courseName);
             students.forEach(System.out::println);
-        }
-        catch (DaoException cause){
+        } catch (DaoException cause) {
             throw new ServiceException("Course with name: " + courseName + " is not found", cause);
         }
     }

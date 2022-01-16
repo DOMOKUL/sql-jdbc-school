@@ -8,5 +8,7 @@ public interface GroupService {
 
     Map<String, Integer> getAllGroupsWithLessOrEqualsStudentCount(Integer studentCount);
 
+    void printAllGroupsWithLessOrEqualsStudentCount(Integer studentCount);
+
     void createGroup(Group group);
 }

@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class GroupServiceImpl implements GroupService {
 
-    private GroupDao groupDao;
+    private final GroupDao groupDao;
 
     public GroupServiceImpl(GroupDaoImpl groupDao) {
         this.groupDao = groupDao;
@@ -21,14 +21,18 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public Map<String, Integer> getAllGroupsWithLessOrEqualsStudentCount(Integer studentCount) {
         try {
-            var groups = groupDao.getGroupsWithLessSomeNumberEqualsStudents(studentCount);
-            System.out.println("Groups with fewer students: " + studentCount);
-            for (var entry : groups.entrySet()) {
-                System.out.println("Group name : " + entry.getKey() + " Number of students: " + entry.getValue());
-            }
-            return groups;
+            return groupDao.getGroupsWithLessSomeNumberEqualsStudents(studentCount);
         } catch (DaoException cause) {
             throw new ServiceException("Groups with fewer students " + studentCount + " doesn't exist", cause);
+        }
+    }
+
+    @Override
+    public void printAllGroupsWithLessOrEqualsStudentCount(Integer studentCount) {
+        var groups = groupDao.getGroupsWithLessSomeNumberEqualsStudents(studentCount);
+        System.out.println("Groups with fewer students: " + studentCount);
+        for (var entry : groups.entrySet()) {
+            System.out.println("Group name : " + entry.getKey() + " Number of students: " + entry.getValue());
         }
     }
 
