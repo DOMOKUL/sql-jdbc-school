@@ -19,9 +19,9 @@ public class CourseServiceImpl implements CourseService {
     public void createCourse(Course course) {
         try {
             courseDao.create(course);
+            System.out.println("Группа с id: " + course.courseId() + " успешно создана");
         } catch (SQLException cause) {
             throw new ServiceException(cause);
         }
     }
-
 }

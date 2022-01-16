@@ -32,10 +32,11 @@ public class SqlScriptRunner {
     }
 
     private void executeSql(String query){
-        try (var statement = this.connection.createStatement()) {
-            statement.execute(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try (var preparedStatement = DataSource.getConnection()
+                .prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/init.sql"))) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException | IOException cause) {
+            cause.printStackTrace();
         }
     }
 }

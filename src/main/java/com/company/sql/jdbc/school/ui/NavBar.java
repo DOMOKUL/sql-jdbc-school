@@ -1,35 +1,24 @@
 package com.company.sql.jdbc.school.ui;
 
-import com.company.sql.jdbc.school.dao.impl.CourseDaoImpl;
-import com.company.sql.jdbc.school.dao.impl.GroupDaoImpl;
-import com.company.sql.jdbc.school.dao.impl.StudentDaoImpl;
 import com.company.sql.jdbc.school.domain.Course;
 import com.company.sql.jdbc.school.domain.Group;
 import com.company.sql.jdbc.school.domain.Student;
-import com.company.sql.jdbc.school.service.impl.CourseServiceImpl;
-import com.company.sql.jdbc.school.service.impl.GroupServiceImpl;
-import com.company.sql.jdbc.school.service.impl.StudentServiceImpl;
+import com.company.sql.jdbc.school.service.CourseService;
+import com.company.sql.jdbc.school.service.GroupService;
+import com.company.sql.jdbc.school.service.StudentService;
 
-import java.util.Map;
 import java.util.Scanner;
 
 public class NavBar {
 
-    private static final CourseDaoImpl courseDao = new CourseDaoImpl();
-    private static final GroupDaoImpl groupDao = new GroupDaoImpl();
-    private static final StudentDaoImpl studentDao = new StudentDaoImpl();
-    private static final CourseServiceImpl course = new CourseServiceImpl(courseDao);
-    private static final GroupServiceImpl group = new GroupServiceImpl(groupDao);
-    private static final StudentServiceImpl student = new StudentServiceImpl(studentDao);
-
-    public void controlMenu() {
+    public void controlBar(CourseService courseService, GroupService groupService, StudentService studentService) {
         var scanner = new Scanner(System.in);
         while (true) {
             var queryScanner = new Scanner(System.in);
             System.out.println("""
                     Введите:
                     1.Показать все группы с указанным числом студентов
-                    2.Показать всех студентов, относящихся к данной группе
+                    2.Показать всех студентов, относящихся к данному курсу
                     3.Добавить нового студента
                     4.Удалить студента по id
                     5.Добавить студента к курсу
@@ -44,13 +33,12 @@ public class NavBar {
                 break;
             } else if (input == 1) {
                 System.out.println("Введите количество студентов: ");
-                var studentCount = queryScanner.nextLine();
-                getAllGroupsWithLessOrEqualsStudentCountFormat(studentCount);
+                var studentCount = queryScanner.nextInt();
+                groupService.getAllGroupsWithLessOrEqualsStudentCount(studentCount);
             } else if (input == 2) {
                 System.out.println("Введите название курса: ");
                 var courseName = queryScanner.nextLine();
-                var allStudentsWithThisCourseName = student.getAllStudentsWithThisCourseName(courseName);
-                allStudentsWithThisCourseName.forEach(System.out::println);
+                studentService.getAllStudentsWithThisCourseName(courseName);
             } else if (input == 3) {
                 System.out.println("Введите id студента: ");
                 var studentId = queryScanner.nextInt();
@@ -60,34 +48,31 @@ public class NavBar {
                 var firstName = scanner.next();
                 System.out.println("Введите фамилию студента: ");
                 var lastName = queryScanner.next();
-                createStudentFormat(studentId, groupId, firstName, lastName);
+                studentService.createStudent(new Student(studentId, groupId, firstName, lastName));
             } else if (input == 4) {
                 System.out.println("Введите id студента: ");
                 var studentId = queryScanner.nextInt();
-                student.deleteStudent(studentId);
-                System.out.println("Студент с id: " + studentId + " успешно удален");
+                studentService.deleteStudent(studentId);
             } else if (input == 5) {
                 System.out.println("Введите id студента: ");
                 var studentId = queryScanner.nextInt();
                 System.out.println("Введите id курса: ");
                 var courseId = queryScanner.nextInt();
-                student.addStudentToCourse(studentId, courseId);
-                System.out.println("Студент с id: " + studentId + " успешно создан");
+                studentService.addStudentToCourse(studentId, courseId);
             } else if (input == 6) {
                 System.out.println("Введите id студента: ");
                 var studentId = queryScanner.nextInt();
                 System.out.println("Введите id курса: ");
                 var courseId = queryScanner.nextInt();
-                student.deleteStudentFromCourse(studentId, courseId);
-                System.out.println("Студент с id: " + studentId + " успешно удален");
+                studentService.deleteStudentFromCourse(studentId, courseId);
             } else if (input == 7) {
-                student.getAllStudents().forEach(System.out::println);
+                studentService.getAllStudents().forEach(System.out::println);
             } else if (input == 8) {
                 System.out.println("Введите id группы: ");
                 var groupId = queryScanner.nextInt();
                 System.out.println("Введите имя группы: ");
                 var groupName = queryScanner.next();
-                createGroupFormat(groupId, groupName);
+                groupService.createGroup(new Group(groupId, groupName));
             } else if (input == 9) {
                 System.out.println("Введите id курса: ");
                 var courseId = queryScanner.nextInt();
@@ -95,33 +80,9 @@ public class NavBar {
                 var courseName = queryScanner.next();
                 System.out.println("Введите описание курса: ");
                 var courseDescription = queryScanner.next();
-                createCourseFormat(courseId, courseName, courseDescription);
+                courseService.createCourse(new Course(courseId, courseName, courseDescription));
             }
         }
-    }
-
-    private void getAllGroupsWithLessOrEqualsStudentCountFormat(String count) {
-        var groups = group.getAllGroupsWithLessOrEqualsStudentCount(Integer.valueOf(count));
-        System.out.println("Группы с числом студентов, меньше: " + count);
-        for (Map.Entry entry : groups.entrySet()) {
-            System.out.println("Название группы: " + entry.getKey() + " Количество студентов: " + entry.getValue());
-        }
-    }
-
-    private void createStudentFormat(Integer studentId, Integer groupId, String firstName, String lastName) {
-        student.createStudent(new Student(studentId, groupId, firstName, lastName));
-        System.out.println("Студент с id: " + studentId + " был создан");
-    }
-
-
-    private void createGroupFormat(Integer groupId, String groupName) {
-        group.createGroup(new Group(groupId, groupName));
-        System.out.println("Группа с id: " + groupId + " успешно создана");
-    }
-
-    private void createCourseFormat(Integer courseId, String courseName, String courseDescription) {
-        course.createCourse(new Course(courseId, courseName, courseDescription));
-        System.out.println("Группа с id: " + courseId + " успешно создана");
     }
 }
 

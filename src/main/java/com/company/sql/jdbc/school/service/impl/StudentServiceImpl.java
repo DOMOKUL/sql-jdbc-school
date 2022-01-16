@@ -1,6 +1,7 @@
 package com.company.sql.jdbc.school.service.impl;
 
 import com.company.sql.jdbc.school.dao.StudentDao;
+import com.company.sql.jdbc.school.dao.exception.DaoException;
 import com.company.sql.jdbc.school.domain.Student;
 import com.company.sql.jdbc.school.service.StudentService;
 import com.company.sql.jdbc.school.service.exception.ServiceException;
@@ -18,35 +19,61 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> getAllStudentsWithThisCourseName(String courseName) {
-        return studentDao.findStudentsByCourseName(courseName);
+        try {
+            var students = studentDao.findStudentsByCourseName(courseName);
+            students.forEach(System.out::println);
+            return students;
+        } catch (DaoException cause) {
+            throw new ServiceException("Course with name: " + courseName + " is not found", cause);
+        }
     }
 
     @Override
     public void createStudent(Student student) {
         try {
             studentDao.create(student);
-        } catch (SQLException cause) {
-            throw new ServiceException(cause);
+            System.out.println("Студент с id: " + student.studentId() + " был создан");
+        } catch (DaoException | SQLException cause) {
+            throw new ServiceException("Студент с id " + student.studentId() + " уже существует", cause);
         }
     }
 
     @Override
-    public void deleteStudent(Integer id) {
-        studentDao.delete(id);
+    public void deleteStudent(Integer studentId) {
+        try {
+            studentDao.delete(studentId);
+            System.out.println("Студент с id: " + studentId + " был удален");
+        } catch (DaoException cause) {
+            throw new ServiceException("Student with id: " + studentId + " is not found", cause);
+        }
     }
 
     @Override
     public void addStudentToCourse(Integer studentId, Integer courseId) {
-        studentDao.addStudentCourse(studentId,courseId);
+        try {
+            studentDao.addStudentToCourse(studentId, courseId);
+            System.out.println("Студент с id: " + studentId + " был добавлен на курс с id " + courseId);
+        } catch (DaoException cause) {
+            throw new ServiceException("Студент с id " + studentId + " не найден", cause);
+        }
     }
 
     @Override
     public List<Student> getAllStudents() {
-        return studentDao.findAll();
+        try {
+            return studentDao.findAll();
+        } catch (DaoException cause) {
+            throw new ServiceException("Не найдено ни одного студента", cause);
+        }
     }
 
     @Override
     public void deleteStudentFromCourse(Integer studentId, Integer courseId) {
-        studentDao.deleteStudentFromCourse(studentId, courseId);
+        try {
+            studentDao.deleteStudentFromCourse(studentId, courseId);
+            System.out.println("Студент с id: " + studentId + " был удален с курса с id " + courseId);
+        } catch (DaoException cause) {
+            throw new ServiceException("На курсе с id " + studentId + " не принадлежит курсу с id " + courseId, cause);
+        }
     }
 }

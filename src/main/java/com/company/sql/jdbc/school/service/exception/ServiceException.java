@@ -13,4 +13,7 @@ public class ServiceException extends DaoException {
     public ServiceException(Throwable cause){
         super(cause);
     }
+    public ServiceException(String message, Throwable cause){
+        super(message, cause);
+    }
 }

@@ -10,9 +10,5 @@ public interface GroupDao extends CrudDao<Group> {
 
     Map<String,Integer> getGroupsWithLessSomeNumberEqualsStudents(Integer number);
 
-    Map<String,Integer> getCountStudentsIntoGroups();
-
     Optional<Group> findById(Integer id);
-
-    Optional<Group> getGroupByName(String groupName);
 }

@@ -3,7 +3,7 @@ package com.company.sql.jdbc.school.util.database.impl;
 import com.company.sql.jdbc.school.dao.exception.DaoException;
 import com.company.sql.jdbc.school.util.DataSource;
 import com.company.sql.jdbc.school.util.SqlFileReader;
-import com.company.sql.jdbc.school.util.database.DataBaseFiller;
+import com.company.sql.jdbc.school.util.database.TableFiller;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,15 +14,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class CoursesFiller implements DataBaseFiller {
+public class CoursesFiller implements TableFiller {
 
     @Override
     public void fillDatabase(String filePath) throws FileNotFoundException {
         LinkedHashMap<String, String> courses = parseCourseName(Path.of(filePath));
         int i = 1;
         try (var connection = DataSource.getConnection();
-             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a course.sql")))
-        {
+             var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a course.sql"))) {
             for (Map.Entry<String, String> entry : courses.entrySet()) {
                 preparedStatement.setInt(1, i++);
                 preparedStatement.setString(2, entry.getKey());

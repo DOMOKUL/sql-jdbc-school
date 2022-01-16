@@ -1,15 +1,14 @@
 package com.company.sql.jdbc.school.dao.impl;
 
 import com.company.sql.jdbc.school.dao.StudentDao;
-import com.company.sql.jdbc.school.domain.Student;
 import com.company.sql.jdbc.school.dao.exception.DaoException;
+import com.company.sql.jdbc.school.domain.Student;
 import com.company.sql.jdbc.school.util.DataSource;
 import com.company.sql.jdbc.school.util.SqlFileReader;
 
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +49,7 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public void addStudentCourse(Integer studentId, Integer courseId) {
+    public void addStudentToCourse(Integer studentId, Integer courseId) {
         try (var connection = DataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create courses_students.sql"))) {
                 preparedStatement.setInt(1, studentId);
