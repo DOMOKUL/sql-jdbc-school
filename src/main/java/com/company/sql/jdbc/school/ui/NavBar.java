@@ -38,7 +38,7 @@ public class NavBar {
             } else if (input == 2) {
                 System.out.println("Введите название курса: ");
                 var courseName = queryScanner.nextLine();
-                studentService.getAllStudentsWithThisCourseName(courseName);
+                studentService.printAllStudentsWithThisCourseName(courseName);
             } else if (input == 3) {
                 System.out.println("Введите id студента: ");
                 var studentId = queryScanner.nextInt();

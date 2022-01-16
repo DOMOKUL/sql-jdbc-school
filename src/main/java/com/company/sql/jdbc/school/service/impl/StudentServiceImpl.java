@@ -21,10 +21,18 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> getAllStudentsWithThisCourseName(String courseName) {
         try {
+            return studentDao.findStudentsByCourseName(courseName);
+        } catch (DaoException cause) {
+            throw new ServiceException("Course with name: " + courseName + " is not found", cause);
+        }
+    }
+
+    public void printAllStudentsWithThisCourseName(String courseName){
+        try {
             var students = studentDao.findStudentsByCourseName(courseName);
             students.forEach(System.out::println);
-            return students;
-        } catch (DaoException cause) {
+        }
+        catch (DaoException cause){
             throw new ServiceException("Course with name: " + courseName + " is not found", cause);
         }
     }
