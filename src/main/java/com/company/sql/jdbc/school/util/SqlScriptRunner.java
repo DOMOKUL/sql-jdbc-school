@@ -32,8 +32,7 @@ public class SqlScriptRunner {
     }
 
     private void executeSql(String query){
-        try (var preparedStatement = DataSource.getConnection()
-                .prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/init.sql"))) {
+        try (var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile(query))) {
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException cause) {
             cause.printStackTrace();

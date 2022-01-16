@@ -1,7 +1,5 @@
 package com.company.sql.jdbc.school.util.database;
 
-import com.company.sql.jdbc.school.util.database.impl.CoursesFiller;
-import com.company.sql.jdbc.school.util.database.impl.GroupsFiller;
 import com.company.sql.jdbc.school.util.database.impl.StudentsFiller;
 
 import java.io.FileNotFoundException;
