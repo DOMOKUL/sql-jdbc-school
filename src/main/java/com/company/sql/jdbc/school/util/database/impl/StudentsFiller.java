@@ -69,6 +69,4 @@ public class StudentsFiller implements TableFiller {
     private String randomizeStudentName(List<String> nameList) {
         return nameList.get(new Random().nextInt(nameList.size()));
     }
-
-
 }

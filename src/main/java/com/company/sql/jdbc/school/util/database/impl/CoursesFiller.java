@@ -29,7 +29,7 @@ public class CoursesFiller implements TableFiller {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException cause) {
-            throw new DaoException("fill table courses fail: " + cause);
+            throw new DaoException("Fill table courses fail: " + cause);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,8 +43,6 @@ public class CoursesFiller implements TableFiller {
                 String[] columns = scanner.nextLine().split("-");
                 result.put(columns[0], columns[1]);
             }
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException();
         }
         return result;
     }

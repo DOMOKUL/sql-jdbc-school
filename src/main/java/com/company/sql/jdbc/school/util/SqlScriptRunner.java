@@ -9,7 +9,7 @@ import java.util.StringJoiner;
 
 public class SqlScriptRunner {
 
-    private Connection connection;
+    private final Connection connection;
 
     public SqlScriptRunner(Connection connection) {
         this.connection = connection;

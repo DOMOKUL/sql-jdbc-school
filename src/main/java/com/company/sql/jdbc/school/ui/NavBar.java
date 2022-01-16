@@ -11,7 +11,17 @@ import java.util.Scanner;
 
 public class NavBar {
 
-    public void controlBar(CourseService courseService, GroupService groupService, StudentService studentService) {
+    private final CourseService courseService;
+    private final GroupService groupService;
+    private final StudentService studentService;
+
+    public NavBar(CourseService courseService, GroupService groupService, StudentService studentService) {
+        this.courseService = courseService;
+        this.groupService = groupService;
+        this.studentService = studentService;
+    }
+
+    public void controlBar() {
         var scanner = new Scanner(System.in);
         while (true) {
             var queryScanner = new Scanner(System.in);

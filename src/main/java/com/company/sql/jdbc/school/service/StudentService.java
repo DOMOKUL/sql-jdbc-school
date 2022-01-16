@@ -8,6 +8,8 @@ public interface StudentService {
 
     List<Student> getAllStudentsWithThisCourseName(String courseName);
 
+    void printAllStudentsWithThisCourseName(String courseName);
+
     void createStudent(Student student);
 
     void deleteStudent(Integer id);

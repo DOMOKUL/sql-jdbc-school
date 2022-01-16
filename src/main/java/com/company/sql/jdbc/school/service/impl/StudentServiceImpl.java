@@ -27,6 +27,7 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
+    @Override
     public void printAllStudentsWithThisCourseName(String courseName){
         try {
             var students = studentDao.findStudentsByCourseName(courseName);
@@ -41,9 +42,9 @@ public class StudentServiceImpl implements StudentService {
     public void createStudent(Student student) {
         try {
             studentDao.create(student);
-            System.out.println("Студент с id: " + student.studentId() + " был создан");
+            System.out.println("Student with id: " + student.studentId() + " successfully created");
         } catch (DaoException | SQLException cause) {
-            throw new ServiceException("Студент с id " + student.studentId() + " уже существует", cause);
+            throw new ServiceException("Student with id: " + student.studentId() + " exists", cause);
         }
     }
 
@@ -51,7 +52,7 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudent(Integer studentId) {
         try {
             studentDao.delete(studentId);
-            System.out.println("Студент с id: " + studentId + " был удален");
+            System.out.println("Student with id: " + studentId + " was deleted");
         } catch (DaoException cause) {
             throw new ServiceException("Student with id: " + studentId + " is not found", cause);
         }
@@ -61,9 +62,9 @@ public class StudentServiceImpl implements StudentService {
     public void addStudentToCourse(Integer studentId, Integer courseId) {
         try {
             studentDao.addStudentToCourse(studentId, courseId);
-            System.out.println("Студент с id: " + studentId + " был добавлен на курс с id " + courseId);
+            System.out.println("Student with id: " + studentId + " has been added to the course with the id " + courseId);
         } catch (DaoException cause) {
-            throw new ServiceException("Студент с id " + studentId + " не найден", cause);
+            throw new ServiceException("Student with id " + studentId + " not found", cause);
         }
     }
 
@@ -72,7 +73,7 @@ public class StudentServiceImpl implements StudentService {
         try {
             return studentDao.findAll();
         } catch (DaoException cause) {
-            throw new ServiceException("Не найдено ни одного студента", cause);
+            throw new ServiceException("No students were found", cause);
         }
     }
 
@@ -80,9 +81,9 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudentFromCourse(Integer studentId, Integer courseId) {
         try {
             studentDao.deleteStudentFromCourse(studentId, courseId);
-            System.out.println("Студент с id: " + studentId + " был удален с курса с id " + courseId);
+            System.out.println("Student with id: " + studentId + " has been removed from the course with the id " + courseId);
         } catch (DaoException cause) {
-            throw new ServiceException("На курсе с id " + studentId + " не принадлежит курсу с id " + courseId, cause);
+            throw new ServiceException("Student with id: " + studentId + " does not belong to a course with the id " + courseId, cause);
         }
     }
 }

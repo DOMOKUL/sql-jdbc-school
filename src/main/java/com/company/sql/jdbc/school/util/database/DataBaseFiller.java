@@ -8,9 +8,9 @@ import java.io.FileNotFoundException;
 
 public class DataBaseFiller {
 
-    private TableFiller coursesFiller;
-    private TableFiller groupsFiller;
-    private StudentsFiller studentsFiller;
+    private final TableFiller coursesFiller;
+    private final TableFiller groupsFiller;
+    private final StudentsFiller studentsFiller;
 
     public DataBaseFiller(CoursesFiller coursesFiller, GroupsFiller groupsFiller, StudentsFiller studentsFiller) {
         this.coursesFiller = coursesFiller;

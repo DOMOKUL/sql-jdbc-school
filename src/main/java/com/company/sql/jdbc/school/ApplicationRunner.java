@@ -3,9 +3,6 @@ package com.company.sql.jdbc.school;
 import com.company.sql.jdbc.school.dao.impl.CourseDaoImpl;
 import com.company.sql.jdbc.school.dao.impl.GroupDaoImpl;
 import com.company.sql.jdbc.school.dao.impl.StudentDaoImpl;
-import com.company.sql.jdbc.school.service.CourseService;
-import com.company.sql.jdbc.school.service.GroupService;
-import com.company.sql.jdbc.school.service.StudentService;
 import com.company.sql.jdbc.school.service.impl.CourseServiceImpl;
 import com.company.sql.jdbc.school.service.impl.GroupServiceImpl;
 import com.company.sql.jdbc.school.service.impl.StudentServiceImpl;
@@ -32,10 +29,7 @@ public class ApplicationRunner {
 
         DataBaseFiller dataBaseFiller = new DataBaseFiller(new CoursesFiller(), new GroupsFiller(), new StudentsFiller());
         dataBaseFiller.createRandomDataInDataBase();
-        CourseService courseService = new CourseServiceImpl(new CourseDaoImpl());
-        GroupService groupService = new GroupServiceImpl(new GroupDaoImpl());
-        StudentService studentService = new StudentServiceImpl(new StudentDaoImpl());
-        NavBar navBar = new NavBar();
-        navBar.controlBar(courseService, groupService, studentService);
+        NavBar navBar = new NavBar(new CourseServiceImpl(new CourseDaoImpl()), new GroupServiceImpl(new GroupDaoImpl()), new StudentServiceImpl(new StudentDaoImpl()));
+        navBar.controlBar();
     }
 }

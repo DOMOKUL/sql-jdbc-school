@@ -22,13 +22,13 @@ public class GroupServiceImpl implements GroupService {
     public Map<String, Integer> getAllGroupsWithLessOrEqualsStudentCount(Integer studentCount) {
         try {
             var groups = groupDao.getGroupsWithLessSomeNumberEqualsStudents(studentCount);
-            System.out.println("Группы с числом студентов, меньше: " + studentCount);
+            System.out.println("Groups with fewer students: " + studentCount);
             for (var entry : groups.entrySet()) {
-                System.out.println("Название группы: " + entry.getKey() + " Количество студентов: " + entry.getValue());
+                System.out.println("Group name : " + entry.getKey() + " Number of students: " + entry.getValue());
             }
             return groups;
         } catch (DaoException cause) {
-            throw new ServiceException("Групп с числом студентов, меньшим " + studentCount + " не существует", cause);
+            throw new ServiceException("Groups with fewer students " + studentCount + " doesn't exist", cause);
         }
     }
 
@@ -36,7 +36,7 @@ public class GroupServiceImpl implements GroupService {
     public void createGroup(Group group) {
         try {
             groupDao.create(group);
-            System.out.println("Группа с id: " + group.groupId() + " успешно создана");
+            System.out.println("Group with id: " + group.groupId() + " successfully created");
         } catch (SQLException cause) {
             throw new ServiceException(cause);
         }
