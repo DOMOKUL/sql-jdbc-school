@@ -11,15 +11,13 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class CoursesFiller implements TableFiller {
 
     @Override
-    public void fillDatabase(List<String> filePath) throws FileNotFoundException {
-        while ()
+    public void fillDatabase(String filePath) throws FileNotFoundException {
         LinkedHashMap<String, String> courses = parseCourseName(Path.of(filePath));
         int i = 1;
         try (var connection = DataSource.getConnection();
@@ -48,6 +46,4 @@ public class CoursesFiller implements TableFiller {
         }
         return result;
     }
-
-
 }

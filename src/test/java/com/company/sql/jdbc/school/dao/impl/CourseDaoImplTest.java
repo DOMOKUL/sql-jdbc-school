@@ -2,7 +2,6 @@ package com.company.sql.jdbc.school.dao.impl;
 
 import com.company.sql.jdbc.school.dao.CourseDao;
 import com.company.sql.jdbc.school.domain.Course;
-import org.junit.ClassRule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +16,6 @@ class CourseDaoImplTest {
 
     private CourseDao courseDao;
 
-    @ClassRule
     @BeforeEach
     void setUp() {
         courseDao = new CourseDaoImpl();

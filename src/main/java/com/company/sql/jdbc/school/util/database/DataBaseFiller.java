@@ -26,7 +26,6 @@ public class DataBaseFiller {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
         studentsFiller.fillTableStudentsCourses();
     }
 }

@@ -14,7 +14,7 @@ import com.company.sql.jdbc.school.util.database.impl.CoursesFiller;
 import com.company.sql.jdbc.school.util.database.impl.GroupsFiller;
 import com.company.sql.jdbc.school.util.database.impl.StudentsFiller;
 
-import java.io.StringReader;
+import java.io.*;
 import java.sql.SQLException;
 
 public class ApplicationRunner {
@@ -22,8 +22,8 @@ public class ApplicationRunner {
     public static void main(String[] args) {
         try {
             SqlScriptRunner sqlScriptRunner = new SqlScriptRunner(DataSource.getConnection());
-            sqlScriptRunner.runSqlScript(new StringReader("src/main/resources/sql/init.sql"));
-        } catch (SQLException e) {
+            sqlScriptRunner.runSqlScript(new BufferedReader(new FileReader("src/main/resources/sql/init.sql")));
+        } catch (SQLException | FileNotFoundException e) {
             e.printStackTrace();
         }
 

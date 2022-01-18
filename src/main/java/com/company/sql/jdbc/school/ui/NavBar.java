@@ -24,24 +24,25 @@ public class NavBar {
     }
 
     public void controlBar() {
-        try {
-            var scanner = new Scanner(System.in);
-            while (true) {
-                var queryScanner = new Scanner(System.in);
-                System.out.println("""
-                        Введите:
-                        1.Показать все группы с указанным числом студентов
-                        2.Показать всех студентов, относящихся к данному курсу
-                        3.Добавить нового студента
-                        4.Удалить студента по id
-                        5.Добавить студента к курсу
-                        6.Удалить студента из курса
-                        7.Показать всех студентов
-                        8.Создать группу
-                        9.Создать курс
-                        0.Прекратить выполнение
-                        """);
-                var input = scanner.nextInt();
+
+        var scanner = new Scanner(System.in);
+        while (true) {
+            var queryScanner = new Scanner(System.in);
+            System.out.println("""
+                    Введите:
+                    1.Показать все группы с указанным числом студентов
+                    2.Показать всех студентов, относящихся к данному курсу
+                    3.Добавить нового студента
+                    4.Удалить студента по id
+                    5.Добавить студента к курсу
+                    6.Удалить студента из курса
+                    7.Показать всех студентов
+                    8.Создать группу
+                    9.Создать курс
+                    0.Прекратить выполнение
+                    """);
+            var input = scanner.nextInt();
+            try {
                 if (input == 0) {
                     break;
                 } else if (input == 1) {
@@ -95,12 +96,14 @@ public class NavBar {
                     var courseDescription = queryScanner.next();
                     courseService.createCourse(new Course(courseId, courseName, courseDescription));
                 }
+            } catch (ServiceException cause) {
+                throw new UiException("UI exception ", cause);
             }
-        } catch (ServiceException cause) {
-            throw new UiException("UI exception ", cause);
+
         }
     }
 }
+
 
 
 
