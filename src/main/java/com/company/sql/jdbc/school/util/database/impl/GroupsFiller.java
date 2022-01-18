@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 public class GroupsFiller implements TableFiller {
 
     @Override
-    public void fillDatabase(String filePath) {
+    public void fillDatabase(List<String> filePath) {
         List<String> groups = parseGroupName(Path.of(filePath));
         Collections.shuffle(groups);
         try (var connection = DataSource.getConnection();
