@@ -18,7 +18,7 @@ CREATE UNIQUE INDEX courses_unique_id_idx ON courses (course_id);
 CREATE TABLE students
 (
     student_id INTEGER PRIMARY KEY,
-    group_id   INTEGER NOT NULL,
+    group_id   INTEGER ,
     first_name VARCHAR NOT NULL,
     last_name  VARCHAR NOT NULL,
     CONSTRAINT fk_groups
@@ -30,8 +30,8 @@ CREATE UNIQUE INDEX students_unique_id_idx ON students (student_id);
 
 CREATE TABLE students_courses
 (
-    student_id INTEGER NOT NULL,
-    course_id  INTEGER NOT NULL,
+    student_id INTEGER,
+    course_id  INTEGER,
     PRIMARY KEY (student_id, course_id),
     CONSTRAINT FK_students_courses_courses
         FOREIGN KEY (student_id) REFERENCES students (student_id)

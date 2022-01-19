@@ -17,11 +17,17 @@ import java.util.stream.Stream;
 
 public class GroupsFiller implements TableFiller {
 
+    private final DataSource dataSource;
+
+    public GroupsFiller(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
     public void fillDatabase(String filePath) {
         List<String> groups = parseGroupName(Path.of(filePath));
         Collections.shuffle(groups);
-        try (var connection = DataSource.getConnection();
+        try (var connection = dataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a group.sql"))) {
             for (int i = 1; i <= 10; i++) {
                 preparedStatement.setInt(1, i);

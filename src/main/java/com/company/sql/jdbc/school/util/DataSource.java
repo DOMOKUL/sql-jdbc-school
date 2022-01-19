@@ -5,21 +5,29 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public final class DataSource {
 
-    private static final HikariConfig config = new HikariConfig(
-            "src/main/resources/application.properties");
-    private static final HikariDataSource ds;
+    private final HikariDataSource ds;
 
-    static {
+    private final HikariConfig config;
+
+    public DataSource() {
+        config = new HikariConfig("src/main/resources/application.properties");
         ds = new HikariDataSource(config);
     }
 
-    private DataSource() {
+    public DataSource(String jdbcUrl, String databaseUsername, String databasePassword) {
+        Properties properties = new Properties();
+        properties.setProperty("jdbcUrl", jdbcUrl);
+        properties.setProperty("username", databaseUsername);
+        properties.setProperty("password", databasePassword);
+        this.config = new HikariConfig(properties);
+        ds = new HikariDataSource(config);
     }
 
-    public static Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException {
         return ds.getConnection();
     }
 }

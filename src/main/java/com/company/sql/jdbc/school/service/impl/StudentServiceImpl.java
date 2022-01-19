@@ -7,7 +7,6 @@ import com.company.sql.jdbc.school.domain.Student;
 import com.company.sql.jdbc.school.service.StudentService;
 import com.company.sql.jdbc.school.service.exception.ServiceException;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class StudentServiceImpl implements StudentService {
@@ -42,7 +41,7 @@ public class StudentServiceImpl implements StudentService {
         try {
             studentDao.create(student);
             System.out.println("Student with id: " + student.studentId() + " successfully created");
-        } catch (DaoException | SQLException cause) {
+        } catch (DaoException cause){ 
             throw new ServiceException("Student with id: " + student.studentId() + " exists", cause);
         }
     }

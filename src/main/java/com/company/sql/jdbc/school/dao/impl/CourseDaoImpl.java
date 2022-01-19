@@ -11,13 +11,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CourseDaoImpl implements CourseDao {
 
+    private final DataSource dataSource;
+
+    public CourseDaoImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+
     @Override
     public void create(Course course) {
-        try (var connection = DataSource.getConnection();
+        try (var connection = dataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a course.sql"))) {
             preparedStatement.setInt(1, course.courseId());
             preparedStatement.setString(2, course.courseName());
@@ -32,18 +38,21 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public Optional<Course> findById(Integer id) {
-        try (var connection = DataSource.getConnection();
+    public Course findById(Integer id) {
+        try (var connection = dataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find course by id.sql"))) {
-            preparedStatement.setInt(1, Math.toIntExact(id));
+            preparedStatement.setInt(1, id);
             var resultSet = preparedStatement.executeQuery();
             Course course = null;
             if (resultSet.next()) {
                 course = buildCourse(resultSet);
             }
-            return Optional.ofNullable(course);
+            if (course == null) {
+                throw new DaoException("Course with id: " + id + " is not found");
+            }
+            return course;
         } catch (SQLException cause) {
-            throw new DaoException("Course with id: " + id + " is not found");
+            throw new DaoException("Error when accessing the database ", cause);
         } catch (IOException e) {
             throw new DaoException("File not found");
         }
@@ -51,7 +60,7 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public List<Course> findAll() {
-        try (var connection = DataSource.getConnection();
+        try (var connection = dataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that find all courses.sql"))) {
             var resultSet = preparedStatement.executeQuery();
             List<Course> courses = new ArrayList<>();
@@ -60,35 +69,46 @@ public class CourseDaoImpl implements CourseDao {
             }
             return courses;
         } catch (SQLException cause) {
-            throw new DaoException("No courses found");
+            throw new DaoException("No courses found ", cause);
         } catch (IOException e) {
             throw new DaoException("File not found");
         }
     }
 
     @Override
-    public void update(Course course) {
-        try (var connection = DataSource.getConnection();
+    public boolean update(Course course) {
+        try (var connection = dataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that update course by id.sql"))) {
             preparedStatement.setInt(1, course.courseId());
             preparedStatement.setString(2, course.courseName());
             preparedStatement.setString(3, course.courseDescription());
-            preparedStatement.executeUpdate();
-        } catch (SQLException cause) {
+            preparedStatement.setInt(4,course.courseId());
+            var recordCount = preparedStatement.executeUpdate();
+            if (recordCount != 0) {
+                return true;
+            }
             throw new DaoException("Course with id: " + course.courseId() + " is not found");
+
+        } catch (SQLException cause) {
+            throw new DaoException("Error when accessing the database ", cause);
         } catch (IOException e) {
             throw new DaoException("File not found");
         }
     }
 
     @Override
-    public void delete(Integer id) {
-        try (var connection = DataSource.getConnection();
+    public boolean delete(Integer courseId) {
+        try (var connection = dataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that delete course by id.sql"))) {
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
+            preparedStatement.setInt(1, courseId);
+            var recordCount = preparedStatement.executeUpdate();
+            if (recordCount != 0) {
+                return true;
+            }
+            throw new DaoException("Course with id: " + courseId + " is not exist");
+
         } catch (SQLException cause) {
-            throw new DaoException("Course with id: " + id + "is not found");
+            throw new DaoException("Error when accessing the database ", cause);
         } catch (IOException e) {
             throw new DaoException("File not found");
         }

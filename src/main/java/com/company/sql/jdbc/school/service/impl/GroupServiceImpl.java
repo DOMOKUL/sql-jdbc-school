@@ -7,7 +7,6 @@ import com.company.sql.jdbc.school.domain.Group;
 import com.company.sql.jdbc.school.service.GroupService;
 import com.company.sql.jdbc.school.service.exception.ServiceException;
 
-import java.sql.SQLException;
 import java.util.Map;
 
 public class GroupServiceImpl implements GroupService {
@@ -41,7 +40,7 @@ public class GroupServiceImpl implements GroupService {
         try {
             groupDao.create(group);
             System.out.println("Group with id: " + group.groupId() + " successfully created");
-        } catch (SQLException cause) {
+        } catch (DaoException cause) {
             throw new ServiceException(cause);
         }
     }

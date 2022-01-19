@@ -20,16 +20,18 @@ import java.sql.SQLException;
 public class ApplicationRunner {
 
     public static void main(String[] args) {
+        var dataSource = new DataSource();
         try {
-            SqlScriptRunner sqlScriptRunner = new SqlScriptRunner(DataSource.getConnection());
-            sqlScriptRunner.runSqlScript(new BufferedReader(new FileReader("src/main/resources/sql/init.sql")));
+            SqlScriptRunner sqlScriptRunner = new SqlScriptRunner(dataSource.getConnection());
+            sqlScriptRunner.runSqlScript(new BufferedReader(new FileReader("init.sql")));
         } catch (SQLException | FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        DataBaseFiller dataBaseFiller = new DataBaseFiller(new CoursesFiller(), new GroupsFiller(), new StudentsFiller());
+        DataBaseFiller dataBaseFiller = new DataBaseFiller(new CoursesFiller(dataSource), new GroupsFiller(dataSource), new StudentsFiller(dataSource));
         dataBaseFiller.createRandomDataInDataBase();
-        NavBar navBar = new NavBar(new CourseServiceImpl(new CourseDaoImpl()), new GroupServiceImpl(new GroupDaoImpl()), new StudentServiceImpl(new StudentDaoImpl()));
+        NavBar navBar = new NavBar(new CourseServiceImpl(new CourseDaoImpl(dataSource)), new GroupServiceImpl(new GroupDaoImpl(dataSource)), new StudentServiceImpl(new StudentDaoImpl(dataSource)));
         navBar.controlBar();
     }
+
 }

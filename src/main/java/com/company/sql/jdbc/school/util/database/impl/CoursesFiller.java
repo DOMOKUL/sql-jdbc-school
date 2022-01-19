@@ -16,11 +16,17 @@ import java.util.Scanner;
 
 public class CoursesFiller implements TableFiller {
 
+    private final DataSource dataSource;
+
+    public CoursesFiller(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
     public void fillDatabase(String filePath) throws FileNotFoundException {
         LinkedHashMap<String, String> courses = parseCourseName(Path.of(filePath));
         int i = 1;
-        try (var connection = DataSource.getConnection();
+        try (var connection = dataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a course.sql"))) {
             for (Map.Entry<String, String> entry : courses.entrySet()) {
                 preparedStatement.setInt(1, i++);
