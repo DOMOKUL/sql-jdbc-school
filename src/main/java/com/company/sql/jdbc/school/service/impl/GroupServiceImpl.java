@@ -36,10 +36,10 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void createGroup(Group group) {
+    public Group createGroup(Group group) {
         try {
-            groupDao.create(group);
             System.out.println("Group with id: " + group.groupId() + " successfully created");
+            return groupDao.create(group);
         } catch (DaoException cause) {
             throw new ServiceException(cause);
         }

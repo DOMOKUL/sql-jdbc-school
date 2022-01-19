@@ -10,5 +10,5 @@ public interface GroupService {
 
     void printAllGroupsWithLessOrEqualsStudentCount(Integer studentCount);
 
-    void createGroup(Group group);
+    Group createGroup(Group group);
 }

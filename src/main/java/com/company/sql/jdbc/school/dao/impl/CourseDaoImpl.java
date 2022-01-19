@@ -22,14 +22,14 @@ public class CourseDaoImpl implements CourseDao {
 
 
     @Override
-    public void create(Course course) {
+    public Course create(Course course) {
         try (var connection = dataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a course.sql"))) {
             preparedStatement.setInt(1, course.courseId());
             preparedStatement.setString(2, course.courseName());
             preparedStatement.setString(3, course.courseDescription());
             preparedStatement.executeUpdate();
-
+            return course;
         } catch (SQLException cause) {
             throw new DaoException("Course with id: " + course.courseId() + " is already exists");
         } catch (IOException e) {
@@ -82,7 +82,7 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.setInt(1, course.courseId());
             preparedStatement.setString(2, course.courseName());
             preparedStatement.setString(3, course.courseDescription());
-            preparedStatement.setInt(4,course.courseId());
+            preparedStatement.setInt(4, course.courseId());
             var recordCount = preparedStatement.executeUpdate();
             if (recordCount != 0) {
                 return true;

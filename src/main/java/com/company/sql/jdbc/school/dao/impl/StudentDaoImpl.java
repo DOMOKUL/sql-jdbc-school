@@ -80,7 +80,7 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public void create(Student student) {
+    public Student create(Student student) {
         try (var connection = dataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a student.sql"))) {
             preparedStatement.setInt(1, student.studentId());
@@ -88,6 +88,7 @@ public class StudentDaoImpl implements StudentDao {
             preparedStatement.setString(3, student.firstName());
             preparedStatement.setString(4, student.lastName());
             preparedStatement.executeUpdate();
+            return student;
 
         } catch (SQLException cause) {
             throw new DaoException("Student with id: " + student.studentId() + " is already exists");

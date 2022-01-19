@@ -23,12 +23,13 @@ public class GroupDaoImpl implements GroupDao {
     }
 
     @Override
-    public void create(Group group) {
+    public Group create(Group group) {
         try (var connection = dataSource.getConnection();
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that create a group.sql"))) {
             preparedStatement.setInt(1, group.groupId());
             preparedStatement.setString(2, group.groupName());
             preparedStatement.executeUpdate();
+            return group;
 
         } catch (SQLException cause) {
             throw new DaoException("Group with id: " + group.groupId() + " is already exist");

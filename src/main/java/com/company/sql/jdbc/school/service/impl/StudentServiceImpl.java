@@ -41,7 +41,7 @@ public class StudentServiceImpl implements StudentService {
         try {
             studentDao.create(student);
             System.out.println("Student with id: " + student.studentId() + " successfully created");
-        } catch (DaoException cause){ 
+        } catch (DaoException cause){
             throw new ServiceException("Student with id: " + student.studentId() + " exists", cause);
         }
     }

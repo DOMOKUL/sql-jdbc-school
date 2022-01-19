@@ -16,10 +16,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void createCourse(Course course) {
+    public Course createCourse(Course course) {
         try {
-            courseDao.create(course);
             System.out.println("Group with id : " + course.courseId() + " successfully created");
+            return courseDao.create(course);
         } catch (DaoException cause) {
             throw new ServiceException(cause);
         }

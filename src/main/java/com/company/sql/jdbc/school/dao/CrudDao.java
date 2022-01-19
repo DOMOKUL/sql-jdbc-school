@@ -2,15 +2,15 @@ package com.company.sql.jdbc.school.dao;
 
 import java.util.List;
 
-public interface CrudDao<E> {
+public interface CrudDao<T> {
 
-    void create(E e);
+    T create(T t);
 
-    E findById(Integer id);
+    T findById(Integer id);
 
-    List<E> findAll();
+    List<T> findAll();
 
-    boolean update(E e);
+    boolean update(T e);
 
     boolean delete(Integer id);
 }
