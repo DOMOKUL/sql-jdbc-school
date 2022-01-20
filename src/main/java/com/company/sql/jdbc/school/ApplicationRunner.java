@@ -19,7 +19,7 @@ import java.sql.SQLException;
 
 public class ApplicationRunner {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         var dataSource = new DataSource();
         try {
             SqlScriptRunner sqlScriptRunner = new SqlScriptRunner(dataSource.getConnection());

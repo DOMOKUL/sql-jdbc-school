@@ -1,6 +1,7 @@
 package com.company.sql.jdbc.school.util.database.impl;
 
 import com.company.sql.jdbc.school.dao.exception.DaoException;
+import com.company.sql.jdbc.school.domain.Course;
 import com.company.sql.jdbc.school.util.DataSource;
 import com.company.sql.jdbc.school.util.SqlFileReader;
 import com.company.sql.jdbc.school.util.database.TableFiller;
@@ -23,7 +24,7 @@ public class CoursesFiller implements TableFiller {
     }
 
     @Override
-    public void fillDatabase(String filePath) throws FileNotFoundException {
+    public void fillDatabase(String filePath) throws IOException {
         LinkedHashMap<String, String> courses = parseCourseName(Path.of(filePath));
         int i = 1;
         try (var connection = dataSource.getConnection();
@@ -41,7 +42,7 @@ public class CoursesFiller implements TableFiller {
         }
     }
 
-    private LinkedHashMap<String, String> parseCourseName(Path filePath) throws FileNotFoundException {
+    private LinkedHashMap<String, String> parseCourseName(Path filePath) throws IOException {
         LinkedHashMap<String, String> result;
         try (Scanner scanner = new Scanner(new FileReader(String.valueOf(filePath)))) {
             result = new LinkedHashMap<>();
@@ -49,6 +50,9 @@ public class CoursesFiller implements TableFiller {
                 String[] columns = scanner.nextLine().split("-");
                 result.put(columns[0], columns[1]);
             }
+        }
+        catch (IOException exception){
+            throw new IOException(exception);
         }
         return result;
     }

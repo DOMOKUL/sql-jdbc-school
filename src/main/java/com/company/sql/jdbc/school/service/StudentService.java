@@ -10,14 +10,14 @@ public interface StudentService {
 
     void printAllStudentsWithThisCourseName(String courseName);
 
-    void createStudent(Student student);
+    Student createStudent(Student student);
 
-    void deleteStudent(Integer id);
+    boolean deleteStudent(Integer id);
 
-    void addStudentToCourse(Integer studentId, Integer courseId);
+    boolean addStudentToCourse(Integer studentId, Integer courseId);
 
     List<Student> getAllStudents();
 
-    void deleteStudentFromCourse(Integer studentId, Integer courseId);
+    boolean deleteStudentFromCourse(Integer studentId, Integer courseId);
 
 }

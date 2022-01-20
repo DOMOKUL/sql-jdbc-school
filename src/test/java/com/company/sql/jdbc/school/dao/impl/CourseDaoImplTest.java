@@ -12,6 +12,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -24,13 +25,13 @@ class CourseDaoImplTest {
     private CourseDao courseDao;
 
     @BeforeEach
-    void setUp() throws SQLException, FileNotFoundException {
+    void setUp() throws SQLException, IOException {
         container.start();
         var dataSource = new DataSource(container.getJdbcUrl(), container.getDatabaseName(), container.getPassword());
         courseDao = new CourseDaoImpl(dataSource);
         SqlScriptRunner sqlScriptRunner = new SqlScriptRunner(dataSource.getConnection());
         sqlScriptRunner.runSqlScript(new BufferedReader(new FileReader("init.sql")));
-        sqlScriptRunner.runSqlScript(new BufferedReader(new FileReader("src/test/resources/sql/filltable.sql")));
+        sqlScriptRunner.runSqlScript(new BufferedReader(new FileReader("src/test/resources/sql/SQL query that fill tables.sql")));
     }
 
     @Test

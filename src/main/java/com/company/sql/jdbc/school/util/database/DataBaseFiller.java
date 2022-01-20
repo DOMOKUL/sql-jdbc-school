@@ -5,6 +5,7 @@ import com.company.sql.jdbc.school.util.database.impl.GroupsFiller;
 import com.company.sql.jdbc.school.util.database.impl.StudentsFiller;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class DataBaseFiller {
 
@@ -23,7 +24,7 @@ public class DataBaseFiller {
             coursesFiller.fillDatabase("src/main/resources/generatedData/course-name-and-description.txt");
             groupsFiller.fillDatabase("src/main/resources/generatedData/group-name.txt");
             studentsFiller.fillTableStudents("src/main/resources/generatedData/student-first-name.txt", "src/main/resources/generatedData/student-last-name.txt");
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         studentsFiller.fillTableStudentsCourses();

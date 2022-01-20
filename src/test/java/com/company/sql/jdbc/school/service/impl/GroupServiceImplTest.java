@@ -1,11 +1,13 @@
 package com.company.sql.jdbc.school.service.impl;
 
 import com.company.sql.jdbc.school.dao.GroupDao;
+import com.company.sql.jdbc.school.dao.impl.GroupDaoImpl;
 import com.company.sql.jdbc.school.domain.Group;
 import com.company.sql.jdbc.school.service.GroupService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Map;
@@ -18,14 +20,14 @@ class GroupServiceImplTest {
 
     private final Group group = new Group(1, "RS-25");
     private final Map<String, Integer> groups = Map.of(group.groupName(), 10, "RS-26", 20);
-    private final Integer studentCount = 20;
-    @Mock
-    GroupDao groupDao;
 
-    GroupService groupService;
+    private final GroupDaoImpl groupDao = Mockito.mock(GroupDaoImpl.class);
+
+    private final GroupService groupService = new GroupServiceImpl(groupDao);
 
     @Test
     void getAllGroupsWithLessOrEqualsStudentCount() {
+        Integer studentCount = 20;
         when(groupDao.getGroupsWithLessSomeNumberEqualsStudents(studentCount)).thenReturn(groups);
 
         assertEquals(groups, groupService.getAllGroupsWithLessOrEqualsStudentCount(studentCount));
@@ -40,6 +42,6 @@ class GroupServiceImplTest {
 
         assertEquals(group, actual);
 
-        verify(groupDao, times(2)).create(group);
+        verify(groupDao, times(1)).create(group);
     }
 }
