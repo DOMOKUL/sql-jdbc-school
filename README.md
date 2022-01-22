@@ -1,3 +1,4 @@
+<<<<<<< README.md
 ###### Task 7 - SQL & JDBC
 
 Create an application sql-jdbc-school that inserts/updates/deletes data in the database using JDBC. Use PostgreSQL DB.
@@ -76,3 +77,5 @@ Menu:
 ![eighth-case](https://git.foxminded.com.ua/nikita.strokach/sql-jdbc-school/uploads/90af9798fce076a86244de28f4c2ba97/eighth-case.PNG)
 
 ![ninth-case](https://git.foxminded.com.ua/nikita.strokach/sql-jdbc-school/uploads/f3b289d86b24518ae4e6b3b19be7320a/ninth-case.PNG)
+=======
+
