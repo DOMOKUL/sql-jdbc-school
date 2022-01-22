@@ -6,7 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GroupsFillerTest {
 
+    private GroupsFiller groupsFiller;
+
     @Test
-    void fillDatabase() {
+    void fillDatabase_shouldThrowNullPointerException_whenInputEmptyLine() {
+        assertThrows(NullPointerException.class,()->
+                groupsFiller.fillDatabase(""));
     }
 }

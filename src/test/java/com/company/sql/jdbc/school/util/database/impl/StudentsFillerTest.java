@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StudentsFillerTest {
 
-    @Test
-    void fillTableStudents() {
-    }
+    StudentsFiller studentsFiller;
 
     @Test
-    void fillTableStudentsCourses() {
+    void fillTableStudents() {
+        assertThrows(NullPointerException.class,()->
+                studentsFiller.fillTableStudents("",""));
     }
 }

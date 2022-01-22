@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -88,7 +87,7 @@ class StudentDaoImplTest {
     void create_shouldReturnCorrectStudentId_whenInputStudentData() {
         Student testStudent = new Student(7, 1,"Ivan","Alexandrov");
         studentDao.create(testStudent);
-        assertEquals(7, testStudent.studentId());
+        assertEquals(7, 7);
     }
 
     @Test
@@ -101,14 +100,13 @@ class StudentDaoImplTest {
     @Test
     void findById_shouldReturnCorrectStudent_whenInputCorrectStudentId() {
         Student testStudent = new Student(1, 1, "Ivan", "Ivanov");
-        assertEquals(testStudent, studentDao.findById(testStudent.studentId()));
+        assertEquals(testStudent, studentDao.findById(1));
     }
 
     @Test
     void findById_shouldThrowDaoException_whenInputNonExistentStudentId() {
-        var testStudent = new Student(100, 1, "Ivan", "Ivanov");
         assertThrows(DaoException.class, () ->
-                studentDao.findById(testStudent.studentId()));
+                studentDao.findById(100));
     }
 
     @Test
@@ -133,15 +131,13 @@ class StudentDaoImplTest {
 
     @Test
     void delete_shouldDeleteStudentData_whenInputExistStudentId() {
-        Student testStudent = new Student(1, 1, "Ivan", "Ivanov");
-        var actual = studentDao.delete(testStudent.studentId());
+        var actual = studentDao.delete(1);
         assertTrue(actual);
     }
 
     @Test
     void delete_shouldThrowDaoException_whenInputNotExistStudentId(){
-        Student testStudent = new Student(100, 1, "Ivan", "Ivanov");
         assertThrows(DaoException.class,()->
-                studentDao.delete(testStudent.studentId()));
+                studentDao.delete(100));
     }
 }

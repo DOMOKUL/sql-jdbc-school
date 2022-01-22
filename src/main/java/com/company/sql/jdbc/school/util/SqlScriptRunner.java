@@ -1,8 +1,5 @@
 package com.company.sql.jdbc.school.util;
 
-import com.company.sql.jdbc.school.service.exception.ServiceException;
-import com.company.sql.jdbc.school.util.exception.UtilException;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -51,14 +50,13 @@ class CourseDaoImplTest {
     @Test
     void findById_shouldReturnCorrectCourse_whenInputCorrectCourseId() {
         Course testCourse = new Course(1, "math", "<3");
-        assertEquals(testCourse, courseDao.findById(testCourse.courseId()));
+        assertEquals(testCourse, courseDao.findById(1));
     }
 
     @Test
     void findById_shouldThrowDaoException_whenInputNonExistentCourseId() {
-        Course testCourse = new Course(10000, "math", "<3");
         assertThrows(DaoException.class, () ->
-                courseDao.findById(testCourse.courseId()));
+                courseDao.findById(10000));
     }
 
     @Test
@@ -83,15 +81,13 @@ class CourseDaoImplTest {
 
     @Test
     void delete_shouldDeleteCourseData_whenInputExistCourseId() {
-        var testCourse = new Course(1, "math", "<3");
-        var actual = courseDao.delete(testCourse.courseId());
+        var actual = courseDao.delete(1);
         assertTrue(actual);
     }
 
     @Test
     void delete_shouldThrowDaoException_whenInputNotExistCourseId(){
-        var testCourse = new Course(100, "math", "<3");
         assertThrows(DaoException.class,()->
-                courseDao.delete(testCourse.courseId()));
+                courseDao.delete(100));
     }
 }

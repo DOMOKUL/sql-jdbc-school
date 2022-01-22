@@ -10,14 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class SqlFileReaderTest {
 
     @Test
-    void readSqlFile_shouldReturnString_whenInputCorrectFilePath() {
-        try {
+    void readSqlFile_shouldReturnString_whenInputCorrectFilePath() throws IOException {
             var actual = SqlFileReader.readSqlFile("src/test/resources/sql/SQL query that create a course.sql");
             var expected = "INSERT INTO courses(course_id, name,description) VALUES (?, ?, ?);";
             assertEquals(expected, actual);
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
     }
 
     @Test

@@ -38,7 +38,7 @@ public class CoursesFiller implements TableFiller {
         } catch (SQLException cause) {
             throw new DaoException("Fill table courses fail: " + cause);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DaoException("Troubles with file: ", e);
         }
     }
 
@@ -50,9 +50,6 @@ public class CoursesFiller implements TableFiller {
                 String[] columns = scanner.nextLine().split("-");
                 result.put(columns[0], columns[1]);
             }
-        }
-        catch (IOException exception){
-            throw new IOException(exception);
         }
         return result;
     }

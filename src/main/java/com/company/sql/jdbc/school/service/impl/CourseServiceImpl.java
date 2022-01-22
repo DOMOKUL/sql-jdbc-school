@@ -18,8 +18,9 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course createCourse(Course course) {
         try {
+            var createdCourse = courseDao.create(course);
             System.out.println("Group with id : " + course.courseId() + " successfully created");
-            return courseDao.create(course);
+            return createdCourse;
         } catch (DaoException cause) {
             throw new ServiceException(cause);
         }

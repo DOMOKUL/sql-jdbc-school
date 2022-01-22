@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -52,14 +51,13 @@ class GroupDaoImplTest {
     @Test
     void findById_shouldReturnCorrectGroup_whenInputCorrectGroupId() {
         Group testGroup = new Group(1, "RS-26");
-        assertEquals(testGroup, groupDao.findById(testGroup.groupId()));
+        assertEquals(testGroup, groupDao.findById(1));
     }
 
     @Test
     void findById_shouldThrowDaoException_whenInputNonExistentGroupId() {
-        Group testGroup = new Group(10000, "RS-26");
         assertThrows(DaoException.class, () ->
-                groupDao.findById(testGroup.groupId()));
+                groupDao.findById(1));
     }
 
     @Test
@@ -100,15 +98,13 @@ class GroupDaoImplTest {
 
     @Test
     void delete_shouldDeleteGroupData_whenInputExistGroupId() {
-        Group testGroup = new Group(2, "RD-25");
-        var actual = groupDao.delete(testGroup.groupId());
+        var actual = groupDao.delete(2);
         assertTrue(actual);
     }
 
     @Test
     void delete_shouldThrowDaoException_whenInputNotExistGroupId(){
-        Group testGroup = new Group(10000, "RS-26");
         assertThrows(DaoException.class,()->
-                groupDao.delete(testGroup.groupId()));
+                groupDao.delete(2));
     }
 }

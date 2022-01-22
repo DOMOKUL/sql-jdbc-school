@@ -39,8 +39,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student createStudent(Student student) {
         try {
+            var createdStudent = studentDao.create(student);
             System.out.println("Student with id: " + student.studentId() + " successfully created");
-            return studentDao.create(student);
+            return createdStudent;
         } catch (DaoException cause){
             throw new ServiceException("Student with id: " + student.studentId() + " exists", cause);
         }
@@ -49,8 +50,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public boolean deleteStudent(Integer studentId) {
         try {
+            var deletedStudent = studentDao.delete(studentId);
             System.out.println("Student with id: " + studentId + " was deleted");
-            return studentDao.delete(studentId);
+            return deletedStudent;
         } catch (DaoException cause) {
             throw new ServiceException("Student with id: " + studentId + " is not found", cause);
         }
@@ -59,8 +61,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public boolean addStudentToCourse(Integer studentId, Integer courseId) {
         try {
+            var addedStudentToCourse = studentDao.addStudentToCourse(studentId, courseId);
             System.out.println("Student with id: " + studentId + " has been added to the course with the id " + courseId);
-            return studentDao.addStudentToCourse(studentId, courseId);
+            return addedStudentToCourse;
         } catch (DaoException cause) {
             throw new ServiceException("Student with id " + studentId + " not found", cause);
         }
@@ -78,8 +81,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public boolean deleteStudentFromCourse(Integer studentId, Integer courseId) {
         try {
+            var deletedStudentFromCourse = studentDao.deleteStudentFromCourse(studentId, courseId);
             System.out.println("Student with id: " + studentId + " has been removed from the course with the id " + courseId);
-            return studentDao.deleteStudentFromCourse(studentId, courseId);
+            return deletedStudentFromCourse;
         } catch (DaoException cause) {
             throw new ServiceException("Student with id: " + studentId + " does not belong to a course with the id " + courseId, cause);
         }
