@@ -1,10 +1,10 @@
-math-very interesting
-biology-love_so_much
-art-it's boring
-language-pleasantly_warm
+math-interesting
+biology-love
+art-boring
+language-pleasantly
 geography-difficult
 history-heavy
-social_science-similar by hi
+social-hi
 geometry-colorful
-music-like PE
-physics-i won't comeback to school
+music-like
+physics-comeback

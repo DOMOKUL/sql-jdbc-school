@@ -4,7 +4,7 @@ public record Group(Integer groupId, String groupName) {
 
     @Override
     public String toString() {
-        return  "groupId=" + groupId +
+        return "groupId=" + groupId +
                 ", groupName='" + groupName + '\'';
     }
 }

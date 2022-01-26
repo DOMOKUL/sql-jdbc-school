@@ -15,28 +15,26 @@ public class SqlScriptRunner {
         this.connection = connection;
     }
 
-    public void runSqlScript(Reader reader){
+    public void runSqlScript(Reader reader) throws SQLException, IOException {
         StringJoiner stringJoiner = new StringJoiner(" ");
-        String line;
+        String  line;
         try (BufferedReader lineReader = new BufferedReader(reader)) {
-            while ((line = lineReader.readLine())!=null){
+            while ((line = lineReader.readLine()) != null) {
                 stringJoiner.add(line);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            throw new IOException(exception);
         }
         String[] queries = stringJoiner.toString().split(";");
-        for (String s: queries) {
+        for (String s : queries) {
             executeSql(s);
         }
     }
 
-    private void executeSql(String query){
-        try (var preparedStatement = DataSource.getConnection()
-                .prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/init.sql"))) {
+    private void executeSql(String query) throws SQLException {
+        try (var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.executeUpdate();
-        } catch (SQLException | IOException cause) {
-            cause.printStackTrace();
+
         }
     }
 }

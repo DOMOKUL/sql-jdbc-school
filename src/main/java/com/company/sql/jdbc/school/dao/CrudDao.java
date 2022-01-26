@@ -1,18 +1,16 @@
 package com.company.sql.jdbc.school.dao;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
-public interface CrudDao<E> {
+public interface CrudDao<T> {
 
-    void create(E e) throws SQLException;
+    T create(T t);
 
-    Optional<E> findById(Integer id);
+    T findById(Integer id);
 
-    List<E> findAll();
+    List<T> findAll();
 
-    void update(E e);
+    boolean update(T e);
 
-    void delete(Integer id);
+    boolean delete(Integer id);
 }
