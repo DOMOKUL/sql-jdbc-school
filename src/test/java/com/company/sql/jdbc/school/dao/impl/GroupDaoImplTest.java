@@ -57,7 +57,7 @@ class GroupDaoImplTest {
     @Test
     void findById_shouldThrowDaoException_whenInputNonExistentGroupId() {
         assertThrows(DaoException.class, () ->
-                groupDao.findById(1));
+                groupDao.findById(10000));
     }
 
     @Test
@@ -105,6 +105,6 @@ class GroupDaoImplTest {
     @Test
     void delete_shouldThrowDaoException_whenInputNotExistGroupId() {
         assertThrows(DaoException.class, () ->
-                groupDao.delete(2));
+                groupDao.delete(10000));
     }
 }
