@@ -17,7 +17,7 @@ public class SqlScriptRunner {
 
     public void runSqlScript(Reader reader) throws SQLException, IOException {
         StringJoiner stringJoiner = new StringJoiner(" ");
-        String  line;
+        String line;
         try (BufferedReader lineReader = new BufferedReader(reader)) {
             while ((line = lineReader.readLine()) != null) {
                 stringJoiner.add(line);

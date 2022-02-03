@@ -1,2 +1,3 @@
-DELETE FROM groups
+DELETE
+FROM groups
 WHERE group_id=?

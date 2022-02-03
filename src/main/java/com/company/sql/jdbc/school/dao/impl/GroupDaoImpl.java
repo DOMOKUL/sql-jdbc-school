@@ -82,7 +82,7 @@ public class GroupDaoImpl implements GroupDao {
              var preparedStatement = connection.prepareStatement(SqlFileReader.readSqlFile("src/main/resources/sql/queries/SQL query that update group by id.sql"))) {
             preparedStatement.setInt(1, group.groupId());
             preparedStatement.setString(2, group.groupName());
-            preparedStatement.setInt(3,group.groupId());
+            preparedStatement.setInt(3, group.groupId());
             var recordCount = preparedStatement.executeUpdate();
             if (recordCount != 0) {
                 return true;

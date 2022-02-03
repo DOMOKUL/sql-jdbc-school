@@ -7,9 +7,9 @@ CREATE TABLE students
     first_name VARCHAR NOT NULL,
     last_name  VARCHAR NOT NULL,
     CONSTRAINT fk_groups
-    FOREIGN KEY (group_id)
-    REFERENCES groups (group_id)
-    ON DELETE SET NULL
+        FOREIGN KEY (group_id)
+            REFERENCES groups (group_id)
+            ON DELETE SET NULL
 );
 CREATE UNIQUE INDEX students_unique_id_idx ON students (student_id);
 

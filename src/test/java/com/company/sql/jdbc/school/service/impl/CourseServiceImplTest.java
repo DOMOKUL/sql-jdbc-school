@@ -1,12 +1,10 @@
 package com.company.sql.jdbc.school.service.impl;
 
-import com.company.sql.jdbc.school.dao.CourseDao;
 import com.company.sql.jdbc.school.dao.impl.CourseDaoImpl;
 import com.company.sql.jdbc.school.domain.Course;
 import com.company.sql.jdbc.school.service.CourseService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -29,7 +27,7 @@ class CourseServiceImplTest {
 
         assertEquals(course, actual);
 
-       verify(courseDao, times(1)).create(course);
+        verify(courseDao, times(1)).create(course);
     }
 
 

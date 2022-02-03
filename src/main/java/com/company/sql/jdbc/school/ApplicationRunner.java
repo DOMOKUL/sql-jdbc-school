@@ -14,7 +14,10 @@ import com.company.sql.jdbc.school.util.database.impl.CoursesFiller;
 import com.company.sql.jdbc.school.util.database.impl.GroupsFiller;
 import com.company.sql.jdbc.school.util.database.impl.StudentsFiller;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class ApplicationRunner {

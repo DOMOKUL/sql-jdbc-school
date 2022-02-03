@@ -84,6 +84,6 @@ class StudentServiceImplTest {
         boolean actual = studentService.deleteStudentFromCourse(student.studentId(), courseId);
 
         assertTrue(actual);
-        verify(studentDao, times(1)).deleteStudentFromCourse(student.studentId(),courseId);
+        verify(studentDao, times(1)).deleteStudentFromCourse(student.studentId(), courseId);
     }
 }

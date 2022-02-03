@@ -1,12 +1,10 @@
 package com.company.sql.jdbc.school.util.database.impl;
 
 import com.company.sql.jdbc.school.dao.exception.DaoException;
-import com.company.sql.jdbc.school.domain.Course;
 import com.company.sql.jdbc.school.util.DataSource;
 import com.company.sql.jdbc.school.util.SqlFileReader;
 import com.company.sql.jdbc.school.util.database.TableFiller;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;

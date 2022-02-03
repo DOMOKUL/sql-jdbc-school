@@ -70,29 +70,29 @@ class GroupDaoImplTest {
     void getGroupsWithLessSomeNumberEqualsStudents_shouldReturnHashMapWithGroupNameAndStudentCount_whenInputCorrectStudentCount() {
         Map<String, Integer> testMap = new HashMap<>();
         var testStudentCount = 10;
-        testMap.put("RS-26",2);
-        testMap.put("RD-25",2);
-        testMap.put("RB-24",2);
-        assertEquals(testMap,groupDao.getGroupsWithLessSomeNumberEqualsStudents(testStudentCount));
+        testMap.put("RS-26", 2);
+        testMap.put("RD-25", 2);
+        testMap.put("RB-24", 2);
+        assertEquals(testMap, groupDao.getGroupsWithLessSomeNumberEqualsStudents(testStudentCount));
     }
 
     @Test
-    void getGroupsWithLessSomeNumberEqualsStudents_shouldThrowDaoException_whenInputIncorrectStudentCount(){
-        assertThrows(DaoException.class,()->
+    void getGroupsWithLessSomeNumberEqualsStudents_shouldThrowDaoException_whenInputIncorrectStudentCount() {
+        assertThrows(DaoException.class, () ->
                 groupDao.getGroupsWithLessSomeNumberEqualsStudents(1));
     }
 
     @Test
-    void update_shouldUpdateGroupData_whenInputExistGroupId(){
+    void update_shouldUpdateGroupData_whenInputExistGroupId() {
         Group testGroup = new Group(1, "RS-26");
         var actual = groupDao.update(testGroup);
         assertTrue(actual);
     }
 
     @Test
-    void update_shouldThrowDaoException_whenInputNotExistGroupId(){
+    void update_shouldThrowDaoException_whenInputNotExistGroupId() {
         Group testGroup = new Group(10000, "RS-26");
-        assertThrows(DaoException.class,()->
+        assertThrows(DaoException.class, () ->
                 groupDao.update(testGroup));
     }
 
@@ -103,8 +103,8 @@ class GroupDaoImplTest {
     }
 
     @Test
-    void delete_shouldThrowDaoException_whenInputNotExistGroupId(){
-        assertThrows(DaoException.class,()->
+    void delete_shouldThrowDaoException_whenInputNotExistGroupId() {
+        assertThrows(DaoException.class, () ->
                 groupDao.delete(2));
     }
 }

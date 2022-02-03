@@ -11,20 +11,20 @@ class SqlFileReaderTest {
 
     @Test
     void readSqlFile_shouldReturnString_whenInputCorrectFilePath() throws IOException {
-            var actual = SqlFileReader.readSqlFile("src/test/resources/sql/SQL query that create a course.sql");
-            var expected = "INSERT INTO courses(course_id, name,description) VALUES (?, ?, ?);";
-            assertEquals(expected, actual);
+        var actual = SqlFileReader.readSqlFile("src/test/resources/sql/SQL query that create a course.sql");
+        var expected = "INSERT INTO courses(course_id, name,description) VALUES (?, ?, ?);";
+        assertEquals(expected, actual);
     }
 
     @Test
-    void readSqlFile_shouldThrowNullPointerException_whenInputNull(){
-            assertThrows(NullPointerException.class, () ->
-                    SqlFileReader.readSqlFile(null));
+    void readSqlFile_shouldThrowNullPointerException_whenInputNull() {
+        assertThrows(NullPointerException.class, () ->
+                SqlFileReader.readSqlFile(null));
     }
 
     @Test
-    void readSqlFile_shouldThrowIOException_whenInputIncorrectFilePath(){
-        assertThrows(IOException.class,()->
+    void readSqlFile_shouldThrowIOException_whenInputIncorrectFilePath() {
+        assertThrows(IOException.class, () ->
                 SqlFileReader.readSqlFile(""));
     }
 }

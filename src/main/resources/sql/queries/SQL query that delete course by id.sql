@@ -1,2 +1,3 @@
-DELETE FROM courses
+DELETE
+FROM courses
 WHERE course_id=?

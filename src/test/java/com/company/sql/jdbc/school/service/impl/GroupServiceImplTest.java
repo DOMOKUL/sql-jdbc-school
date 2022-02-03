@@ -1,12 +1,10 @@
 package com.company.sql.jdbc.school.service.impl;
 
-import com.company.sql.jdbc.school.dao.GroupDao;
 import com.company.sql.jdbc.school.dao.impl.GroupDaoImpl;
 import com.company.sql.jdbc.school.domain.Group;
 import com.company.sql.jdbc.school.service.GroupService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 

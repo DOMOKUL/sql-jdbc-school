@@ -66,16 +66,16 @@ class CourseDaoImplTest {
     }
 
     @Test
-    void update_shouldUpdateCourseData_whenInputExistCourseId(){
+    void update_shouldUpdateCourseData_whenInputExistCourseId() {
         var testCourse = new Course(1, "math", "<3");
         var actual = courseDao.update(testCourse);
         assertTrue(actual);
     }
 
     @Test
-    void update_shouldThrowDaoException_whenInputNotExistCourseId(){
+    void update_shouldThrowDaoException_whenInputNotExistCourseId() {
         var testCourse = new Course(100, "math", "<3");
-        assertThrows(DaoException.class,()->
+        assertThrows(DaoException.class, () ->
                 courseDao.update(testCourse));
     }
 
@@ -86,8 +86,8 @@ class CourseDaoImplTest {
     }
 
     @Test
-    void delete_shouldThrowDaoException_whenInputNotExistCourseId(){
-        assertThrows(DaoException.class,()->
+    void delete_shouldThrowDaoException_whenInputNotExistCourseId() {
+        assertThrows(DaoException.class, () ->
                 courseDao.delete(100));
     }
 }

@@ -1,2 +1,2 @@
-INSERT INTO courses(course_id, name,description)
+INSERT INTO courses(course_id, name, description)
 VALUES (?, ?, ?);

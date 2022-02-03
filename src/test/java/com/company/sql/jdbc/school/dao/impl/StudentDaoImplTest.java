@@ -63,7 +63,7 @@ class StudentDaoImplTest {
     @Test
     void findStudentsByCourseName_shouldThrowDaoException_whenInputIncorrectCourseName() {
         Course course = new Course(100, "math1488", "<3");
-        assertThrows(DaoException.class,()->
+        assertThrows(DaoException.class, () ->
                 studentDao.findStudentsByCourseName(course.courseName()));
     }
 
@@ -79,13 +79,13 @@ class StudentDaoImplTest {
     void addStudentToCourse_shouldThrowDaoException_whenInputIncorrectStudentIdAndCourseId() {
         Student student = new Student(100, 3, "Alex", "Alexandrov");
         Course course = new Course(100, "math", "<3");
-        assertThrows(DaoException.class,()->
-                studentDao.addStudentToCourse(student.studentId(),course.courseId()));
+        assertThrows(DaoException.class, () ->
+                studentDao.addStudentToCourse(student.studentId(), course.courseId()));
     }
 
     @Test
     void create_shouldReturnCorrectStudentId_whenInputStudentData() {
-        Student testStudent = new Student(7, 1,"Ivan","Alexandrov");
+        Student testStudent = new Student(7, 1, "Ivan", "Alexandrov");
         studentDao.create(testStudent);
         assertEquals(7, 7);
     }
@@ -123,9 +123,9 @@ class StudentDaoImplTest {
     }
 
     @Test
-    void update_shouldThrowDaoException_whenInputNotExistStudentId(){
+    void update_shouldThrowDaoException_whenInputNotExistStudentId() {
         var testStudent = new Student(100, 1, "Ivan", "Ivanov");
-        assertThrows(DaoException.class,()->
+        assertThrows(DaoException.class, () ->
                 studentDao.update(testStudent));
     }
 
@@ -136,8 +136,8 @@ class StudentDaoImplTest {
     }
 
     @Test
-    void delete_shouldThrowDaoException_whenInputNotExistStudentId(){
-        assertThrows(DaoException.class,()->
+    void delete_shouldThrowDaoException_whenInputNotExistStudentId() {
+        assertThrows(DaoException.class, () ->
                 studentDao.delete(100));
     }
 }

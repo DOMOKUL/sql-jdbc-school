@@ -16,12 +16,12 @@ class SqlScriptRunnerTest {
 
     @Test
     void runSqlScript_shouldIOException_whenInputEmptyLine() throws IOException, SQLException {
-            container.start();
-            var dataSource = new DataSource(container.getJdbcUrl(), container.getDatabaseName(), container.getPassword());
-            SqlScriptRunner sqlScriptRunner = new SqlScriptRunner(dataSource.getConnection());
-            sqlScriptRunner.runSqlScript(new BufferedReader(new FileReader("init.sql")));
+        container.start();
+        var dataSource = new DataSource(container.getJdbcUrl(), container.getDatabaseName(), container.getPassword());
+        SqlScriptRunner sqlScriptRunner = new SqlScriptRunner(dataSource.getConnection());
+        sqlScriptRunner.runSqlScript(new BufferedReader(new FileReader("init.sql")));
 
-            assertThrows(IOException.class,()->
-                    sqlScriptRunner.runSqlScript(new BufferedReader(new FileReader(""))));
+        assertThrows(IOException.class, () ->
+                sqlScriptRunner.runSqlScript(new BufferedReader(new FileReader(""))));
     }
 }
