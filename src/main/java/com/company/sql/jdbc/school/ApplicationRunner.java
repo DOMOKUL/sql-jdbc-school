@@ -9,7 +9,7 @@ import com.company.sql.jdbc.school.service.impl.StudentServiceImpl;
 import com.company.sql.jdbc.school.ui.NavBar;
 import com.company.sql.jdbc.school.util.DataSource;
 import com.company.sql.jdbc.school.util.SqlScriptRunner;
-import com.company.sql.jdbc.school.util.database.DataBaseFiller;
+import com.company.sql.jdbc.school.util.database.DatabaseFiller;
 import com.company.sql.jdbc.school.util.database.impl.CoursesFiller;
 import com.company.sql.jdbc.school.util.database.impl.GroupsFiller;
 import com.company.sql.jdbc.school.util.database.impl.StudentsFiller;
@@ -31,7 +31,7 @@ public class ApplicationRunner {
             e.printStackTrace();
         }
 
-        DataBaseFiller dataBaseFiller = new DataBaseFiller(new CoursesFiller(dataSource), new GroupsFiller(dataSource), new StudentsFiller(dataSource));
+        DatabaseFiller dataBaseFiller = new DatabaseFiller(new CoursesFiller(dataSource), new GroupsFiller(dataSource), new StudentsFiller(dataSource));
         dataBaseFiller.createRandomDataInDataBase();
         NavBar navBar = new NavBar(new CourseServiceImpl(new CourseDaoImpl(dataSource)), new GroupServiceImpl(new GroupDaoImpl(dataSource)), new StudentServiceImpl(new StudentDaoImpl(dataSource)));
         navBar.controlBar();

@@ -6,13 +6,13 @@ import com.company.sql.jdbc.school.util.database.impl.StudentsFiller;
 
 import java.io.IOException;
 
-public class DataBaseFiller {
+public class DatabaseFiller {
 
     private final TableFiller coursesFiller;
     private final TableFiller groupsFiller;
     private final StudentsFiller studentsFiller;
 
-    public DataBaseFiller(CoursesFiller coursesFiller, GroupsFiller groupsFiller, StudentsFiller studentsFiller) {
+    public DatabaseFiller(CoursesFiller coursesFiller, GroupsFiller groupsFiller, StudentsFiller studentsFiller) {
         this.coursesFiller = coursesFiller;
         this.groupsFiller = groupsFiller;
         this.studentsFiller = studentsFiller;
